@@ -30,7 +30,7 @@ with st.form('nuevo registro'):
             #st.write(newRow,ignore_index=True)
             df_new_row = pd.DataFrame([newRow], columns=df.columns) 
             df = pd.concat([df, df_new_row]) 
-            df.to_csv('Prondanmin23.csv', encoding='utf-8', index=True, index_label='cedula') 
+            df.to_csv(urlcsv , encoding='utf-8', index=True, index_label='cedula') 
             st.success('Registro agregado a la base de datos')
             reg = df.loc[int(cedula)]
             reg
