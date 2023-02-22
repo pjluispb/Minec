@@ -73,7 +73,7 @@ if b1:
                 df.at[int(cedula),'Teléfono'] = telefono
                 first = df.loc[int(cedmin)]
                 first
-                df.to_csv("Prondanmin23.csv")
+                df.to_csv(urlcsv)
                 #cedmin
                 #nombres
                 #apellidos
