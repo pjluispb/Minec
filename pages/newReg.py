@@ -2,7 +2,9 @@ import streamlit as st
 import pandas as pd
 from streamlit_extras.switch_page_button import switch_page
 
-df = pd.read_csv("Prondanmin23.csv", index_col='cedula')
+urlcsv = 'https://raw.githubusercontent.com/pjluispb/miscvs/main/Prondanmin23.csv'
+df = pd.read_csv(urlcsv, index_col='cedula')
+#df = pd.read_csv("Prondanmin23.csv", index_col='cedula')
 
 st.title('Nuevo Registro')
 ph1 = st.container()
