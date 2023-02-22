@@ -2,7 +2,9 @@ import pandas as pd
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 
-df = pd.read_csv("Prondanmin23.csv", index_col='cedula')
+urlcsv = 'https://raw.githubusercontent.com/pjluispb/miscvs/main/Prondanmin23.csv'
+df = pd.read_csv(urlcsv, index_col='cedula')
+#df = pd.read_csv("Prondanmin23.csv", index_col='cedula')
 edo = 'inicial'
 #b0 = st.button("b0")
 #b1 = st.button("b1")
