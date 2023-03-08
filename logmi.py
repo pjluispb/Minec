@@ -22,17 +22,23 @@ st.image(imagen1)
 st.image(imagen2)
 
 st.subheader('Login')
-clave = st.text_input('Ingrese clave de acceso 	:key:', type="password")
-if clave == '99999':
-    acciones = ['=>','ACTUALIZAR', 'REGISTRAR', 'VER DATA']
-    st.subheader('Seleccionar Accion')
-    selector = st.radio('****Seleccionar Acción****', acciones, horizontal=True, label_visibility='collapsed',)
-    #st.write(selector)
-    if selector=='ACTUALIZAR':
-        switch_page('askCed')
-    if selector=='REGISTRAR':
-        switch_page('newReg')
-    if selector=='VER DATA':
-        switch_page('verdata')
+with st.form('Login Minec'):
+    usuario = st.text_input('Usuario', placeholder='nombre de usuario')
+    clave = st.text_input('Clave de acceso 	:key:', type="password", placeholder='clave de acceso')
+    enviar = st.form_submit_button('Enviar')
+    if enviar:
+        buser = [x for x in res.items if x['user']==usuario]
+        if len(buser)>0:
+            bclave = buser[0]['clave']
+            bclave
+            if str(bclave)==str(clave):
+                logina = buser[0]
+                st.session_state['logina'] = logina
+                st.write(logina)
+                switch_page('BienvenidaU')
+            else:
+                st.write('Clave Invalida', clave, type(clave), bclave, type(bclave))
+        else:
+            st.write('Nombre de Usuario Invalido')
     
     
