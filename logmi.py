@@ -1,6 +1,9 @@
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 # Aplicacion base...en pagesMinec....significa que va para la raiz y el resto en el subdir pages
+from deta import Deta
+from PIL import Image
+
 st.set_page_config(
     page_title="Minec Reg App",
     page_icon="🧊",
@@ -8,6 +11,16 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 
 )
+
+deta = Deta(st.secrets["deta_key"])
+accesos = deta.Base('minec-accesos')
+res=accesos.fetch()
+
+imagen1 = Image.open('minecLogo.jpeg')
+imagen2 = Image.open('minecLogoTitle.jpeg')
+st.image(imagen1)
+st.image(imagen2)
+
 st.subheader('Login')
 clave = st.text_input('Ingrese clave de acceso 	:key:', type="password")
 if clave == '99999':
