@@ -40,6 +40,6 @@ with st.form('Login Minec'):
                 st.write('Clave Invalida', clave, type(clave), bclave, type(bclave))
         else:
             st.write('**** Datos Invalidos **** ')
-            st.write( ⚠️  Intenta nuevamente )
+            st.write(' ⚠️  Intenta nuevamente  ')
     
     
