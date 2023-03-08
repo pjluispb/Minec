@@ -39,6 +39,6 @@ with st.form('Login Minec'):
             else:
                 st.write('Clave Invalida', clave, type(clave), bclave, type(bclave))
         else:
-            st.write('Nombre de Usuario Invalido')
+            st.subheader('Datos Invalidos')
     
     
