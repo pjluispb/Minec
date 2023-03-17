@@ -16,7 +16,7 @@ st.image(imagen2)
 
 st.write('Hola ****' + logina['user'] + '****')
 st.write('Aquí tienes la data del distrito: ****' + logina['Distrito'] + '****')
-if logina['tipou']!='Admin':
+if logina['tipou']!='AdminRegistro':
     dtto = logina['Distrito']
 else:
     dtto = ''
@@ -38,6 +38,3 @@ regresar = st.button('Volver')
 if regresar:
     switch_page('logmi')
 
-#busq = pdwks.where(pdwks['Cédula de Identidad']='5125570')
-#busq = pdwks[pdwks['Cédula de Identidad'].str.contains('5125570')]
-#fibusq
