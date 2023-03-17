@@ -35,6 +35,10 @@ with st.form('Login Minec'):
                 logina = buser[0]
                 st.session_state['logina'] = logina
                 st.write(logina)
+                if buser[0]['tipou']=='AdminFinanzas':
+                    switch_page('checkpay')
+                else:
+                    switch_page('BienvenidaU')
                 switch_page('BienvenidaU')
             else:
                 st.write('Clave Invalida', clave, type(clave), bclave, type(bclave))
