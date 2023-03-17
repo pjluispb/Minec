@@ -23,4 +23,10 @@ try:
    gsheetsTit = gc.spreadsheet_titles()       #obtiene la lista de todas las gsheets
 except:
    st.write('No funciona gc.spreadsheet_titles()')
+try:
+   gsheet1 = gc.open('M2uno')
+   st.write('abierto M2uno')
+   st.write(gsheet1)
+except:
+   st.write('falla abriendo M2uno')
 #files = [x for x in gsheetsTit if x.startswith('M2')]    #obtiene la lista de los gsheets que comienzan con M2
