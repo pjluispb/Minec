@@ -14,7 +14,7 @@ imagen2 = Image.open('minecLogoTitle.jpeg')
 deta = Deta(st.secrets["deta_key"])
 SCOPES = ('https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive')
 credentials = st.secrets["gcp_service_account"]
-gc = pygsheets.authorize(custom_credentials=credentials, scopes=SCOPES)
+gc = pygsheets.authorize()
 accesos = deta.Base('minec-accesos')
 res=accesos.fetch()
    
