@@ -16,7 +16,7 @@ def inicializaConexiones():
     deta = Deta(st.secrets["deta_key"])
     #gc = pygsheets.authorize(service_file='/Users/user/Desktop/python/pystreamlit/sacred-atom-377200-804f7396d615.json')
     credentials = st.secrets["gcp_service_account"]
-    gc = pygsheets.authorize(service_file=st.secrets[custom_credentials=credentials)
+    gc = pygsheets.authorize(custom_credentials=credentials)
     accesos = deta.Base('minec-accesos')
     res=accesos.fetch()
     return deta, gc, res
