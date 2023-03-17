@@ -12,8 +12,8 @@ imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
 
 def inicializaConexiones():
-    deta = Deta('e063kbj1_FY2aGBCaDSyMJYwDKW9Jcih2epyAjASb')
-    #deta = Deta(st.secrets["deta_key"])
+    #deta = Deta('e063kbj1_FY2aGBCaDSyMJYwDKW9Jcih2epyAjASb')
+    deta = Deta(st.secrets["deta_key"])
     gc = pygsheets.authorize(service_file='/Users/user/Desktop/python/pystreamlit/sacred-atom-377200-804f7396d615.json')
     accesos = deta.Base('minec-accesos')
     res=accesos.fetch()
