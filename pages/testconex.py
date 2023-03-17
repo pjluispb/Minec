@@ -19,5 +19,5 @@ res=accesos.fetch()
    
 st.write('gc = ',gc)
 st.write('deta = ',deta)
-gsheetsTit = gc.spreadsheet_titles()       #obtiene la lista de todas las gsheets
-files = [x for x in gsheetsTit if x.startswith('M2')]    #obtiene la lista de los gsheets que comienzan con M2
+#gsheetsTit = gc.spreadsheet_titles()       #obtiene la lista de todas las gsheets
+#files = [x for x in gsheetsTit if x.startswith('M2')]    #obtiene la lista de los gsheets que comienzan con M2
