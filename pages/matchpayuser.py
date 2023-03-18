@@ -7,13 +7,16 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 from PIL import Image
 import time
+from google.oauth2 import service_account
 
 imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
 def inicializaConexiones():
-    deta = Deta('e063kbj1_FY2aGBCaDSyMJYwDKW9Jcih2epyAjASb')
-    #deta = Deta(st.secrets["deta_key"])
-    gc = pygsheets.authorize(service_file='/Users/user/Desktop/python/pystreamlit/sacred-atom-377200-804f7396d615.json')
+    deta = Deta(st.secrets.deta_key)
+    SCOPES = ('https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive')
+    service_account_info = st.secrets.gcp_service_account
+    my_credentials = service_account.Credentials.from_service_account_info(service_account_info, scopes = SCOPES)
+    gc =pygsheets.authorize(custom_credentials=my_credentials)
     accesos = deta.Base('minec-accesos')
     res=accesos.fetch()
     return deta, gc, res
