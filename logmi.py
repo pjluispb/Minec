@@ -39,7 +39,7 @@ with st.form('Login Minec'):
                     switch_page('checkpay')
                 else:
                     switch_page('BienvenidaU')
-                switch_page('BienvenidaU')
+                
             else:
                 st.write('Clave Invalida', clave, type(clave), bclave, type(bclave))
         else:
