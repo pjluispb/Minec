@@ -6,6 +6,14 @@ from deta import Deta
 
 from PIL import Image
 
+def row_style(row):
+    if row['paycon'] == 'SI':
+        return pd.Series('background-color: #8ede99; color:#000000', row.index)
+    elif row['paycon'] == 'PENDIENTE':
+        return pd.Series('background-color: #fdd834; color:#000229', row.index)
+    else:
+        return pd.Series('', row.index)
+
 imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
 
