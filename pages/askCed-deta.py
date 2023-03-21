@@ -1,3 +1,4 @@
+
 import pandas as pd
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
@@ -59,6 +60,16 @@ if b0:
                                 telefono = ph1.text_input('Teléfono: :telephone_receiver:',value = first['Telefono'])
                                 distrito = ph1.text_input('Distrito:',value = first['Distrito'], disabled=True)
                                 catasp = ph1.text_input('Categoría que aspira: :male-judge:',value = first['Categoria'], disabled=True)
+                                if first['paycon'] == 'SI': 
+                                        valpay = True
+                                        pagoConfirmado = 'SI'
+                                else: 
+                                        valpay = False
+                                        pagoConfirmado = 'PENDIENTE'
+                                fuenteOrigen = ph1.text_input('Origen del pago(Banco-Paypal-Zelle-Efectivo-Otros)', value = first['fuenteOrigen'], disabled = valpay)
+                                fechaPago = ph1.text_input('Fecha de pago', value = first['fechaPago'], disabled = valpay)
+                                referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 6 dígitos)', value = first['referenciaPago'], disabled = valpay)
+                                montoPago = ph1.text_input('Monto pagado', value = first['montoPago'], disabled = valpay)
                         else:
                                 st.warning('El número de documento de identidad:id: ingresado NO aparece en nuestra base de datos.:file_cabinet: :arrow_right: intente de nuevo')
 if ch_data:
@@ -69,7 +80,7 @@ if ch_data:
                 hide01()
                 b1=True
         else:    
-                st.warning('Por favor confirme la edicion para proceder a la actualizacion:  ')
+                st.warning('Por favor confirme la edición para proceder a la actualización:  ')
 
 if b1:
         with st.expander("ESTOS SON LOS DATOS ACTUALIZADOS", expanded=True):
@@ -77,7 +88,12 @@ if b1:
                 updates = {'Nombres': nombres,
                            'Apellidos': apellidos,
                            'correo': correo,
-                           'Teléfono': telefono}
+                           'Teléfono': telefono,
+                           'paycon': pagoConfirmado,
+                           'fuenteOrigen': fuenteOrigen,
+                           'fechaPago': fechaPago,
+                           'referenciaPago': referenciaPago,
+                           'montoPago': montoPago}
 
                 encprof.update(updates, cedula)
                 registro = encprof.get(cedula)
@@ -87,12 +103,19 @@ if b1:
                         st.success(registro['Nombres'], icon="📛")
                         st.write('**Correo electronico**')
                         st.info(registro['correo'], icon="✉️")
+                        st.write('**Origen de Pago**')
+                        st.info(registro['fuenteOrigen'], icon="✉️")
+                        st.write('**Número de Referencia del Pago**')
+                        st.info(registro['referenciaPago'], icon="✉️")
                 with col2:
                         st.write('**Apellidos**')
                         st.info(registro['Apellidos'], icon="ℹ️")
                         st.write('**Teléfono**')
                         st.success(registro['Teléfono'], icon="📞")
-                        
+                        st.write('**Fecha de Pago**')
+                        st.info(registro['fechaPago'], icon="✉️")
+                        st.write('**Monto PAgado**')
+                        st.info(registro['montoPago'], icon="✉️")
 
                 # #df.to_csv("Prondanmin23.csv")
                 # df.to_csv(urlcsv)
@@ -106,3 +129,4 @@ st.write('----------------')
 regresar = st.button('Volver a Principal')
 if regresar:
     switch_page('logmi')
+
