@@ -78,7 +78,7 @@ else:
     parDp = [(dtto, cat, payc, len(df[(df['Categoria']==cat) & (df['paycon']==payc) & (df['Distrito']==dtto)])) for dtto in distritos for cat in categorias for payc in paycons]
     #print(parDp)
     newdf = pd.DataFrame(parDp, columns = ['Distrito', 'Categoria', 'Registro/Pago', 'Numero'])
-    st.DataFrame(newdf)
+    st.dataframe(newdf)
     
 with st.expander('ver data'):
     st.dataframe(df.style.apply(row_style, axis=1))
