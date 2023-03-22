@@ -23,7 +23,7 @@ st.image(imagen1)
 st.image(imagen2)
 
 st.write('Hola ****' + logina['user'] + '****')
-st.write('Aquí tienes la data del distrito: ****' + logina['Distrito'] + '****')
+st.write('Datos del registro de ministros del distrito: ****' + logina['Distrito'] + '****')
 if logina['tipou']!='AdminRegistro':
     dtto = logina['Distrito']
 else:
