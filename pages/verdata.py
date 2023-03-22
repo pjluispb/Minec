@@ -59,7 +59,7 @@ minOPend = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='PENDI
 dftot = pd.DataFrame([(minC, minCNo, minCPend, minCSi),
                       (minL, minLNo, minLPend, minLNo),
                       (minO, minONo, minOPend, minOSi)],
-                      index=['Ministros Cristianos', 'Ministros Licenciados', 'Ministros Ordenados'],
+                      index=['Ministro Cristiano', 'Ministro Licenciado', 'Ministro Ordenado'],
                       columns=('Total','NO registrados', 'Pendientes', 'Registrados'))
 
 st.dataframe(dftot)
