@@ -57,7 +57,7 @@ minOSi = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='SI')])
 minOPend = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='PENDIENTE')])
 
 dftot = pd.DataFrame([(minC, minCNo, minCPend, minCSi),
-                      (minL, minLNo, minLPend, minLNo),
+                      (minL, minLNo, minLPend, minLSi),
                       (minO, minONo, minOPend, minOSi)],
                       index=['Ministro Cristiano', 'Ministro Licenciado', 'Ministro Ordenado'],
                       columns=('Total','NO registrados', 'Pendientes', 'Registrados'))
