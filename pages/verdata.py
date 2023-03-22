@@ -71,8 +71,6 @@ if dtto!='':
         st.dataframe(dftot)
     
 else:
-    
-    st.write('Distrito = TODOS')
     totales = [len(df[df['Categoria']==categoria]) for categoria in categorias]
     #print(totales, type(totales))
     paycons = ['SI','NO','PENDIENTE']
