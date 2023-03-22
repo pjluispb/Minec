@@ -37,7 +37,7 @@ else:
 #st.write(db_content)
 df = pd.DataFrame.from_dict(db_content)
 df.rename(columns={"key": "cedula"}, inplace=True) # cambia el nombre de la columna KEY a CEDULA
-df = df.reindex(columns=['cedula', 'Nombres', 'Apellidos','Categoria','Email','Telefono','Distrito','Modalidad','Status', 'ReporteCertif','paycon','fuenteOrigen','referenciaPago','fechaPago','montoPago']) #Reordena las columnas como se mostraran
+df = df.reindex(columns=['Distrito', 'cedula', 'Nombres', 'Apellidos','Categoria','Email','Telefono','Modalidad','Status', 'ReporteCertif','paycon','fuenteOrigen','referenciaPago','fechaPago','montoPago']) #Reordena las columnas como se mostraran
 df.style.apply(row_style, axis=1)  #Coloriza las filas
 
 minC = len(df[df['Categoria']=='Ministro Cristiano'])
