@@ -67,7 +67,8 @@ if dtto!='':
                           index=['Ministro Cristiano', 'Ministro Licenciado', 'Ministro Ordenado'],
                           columns=('Total','NO registrados', 'Pendientes', 'Registrados'))
 
-    st.dataframe(dftot)
+    with st.expander('ver consolidado del distrito'):
+        st.dataframe(dftot)
     
 else:
     
@@ -78,7 +79,8 @@ else:
     parDp = [(dtto, cat, payc, len(df[(df['Categoria']==cat) & (df['paycon']==payc) & (df['Distrito']==dtto)])) for dtto in distritos for cat in categorias for payc in paycons]
     #print(parDp)
     newdf = pd.DataFrame(parDp, columns = ['Distrito', 'Categoria', 'Registro/Pago', 'Numero'])
-    st.dataframe(newdf)
+    with st.expander('ver consolidado de todos los distritos'):
+        st.dataframe(newdf)
     
 with st.expander('ver data'):
     st.dataframe(df.style.apply(row_style, axis=1))
