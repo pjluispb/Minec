@@ -35,35 +35,51 @@ if dtto!='':
 else:
     db_content = encprof.fetch().items
 #st.write(db_content)
+distritos = ['Andino', 'Centro', 'Centro Llanos', 'Falcón', 'Lara', 'Llanos', 'Llanos Occidentales', 'Metropolitano', 'Nor Oriente', 'Sur Oriente', 'Yaracuy', 'Zulia']
+categorias = ['Ministro Ordenado', 'Ministro Licenciado', 'Ministro Cristiano']
+totalizadores = ['Total', 'NO registrados', 'Pendientes', 'Registrados']
+
 df = pd.DataFrame.from_dict(db_content)
 df.rename(columns={"key": "cedula"}, inplace=True) # cambia el nombre de la columna KEY a CEDULA
 df = df.reindex(columns=['Distrito', 'cedula', 'Nombres', 'Apellidos', 'Categoria', 'paycon', 'referenciaPago', 'fechaPago', 'montoPago', 'Email', 'Telefono', 'Modalidad', 'Status', 'ReporteCertif', 'fuenteOrigen']) #Reordena las columnas como se mostraran
 df.style.apply(row_style, axis=1)  #Coloriza las filas
 
-minC = len(df[df['Categoria']=='Ministro Cristiano'])
-minL = len(df[df['Categoria']=='Ministro Licenciado'])
-minO  = len(df[df['Categoria']=='Ministro Ordenado'])
+if dtto!='':
+    minC = len(df[df['Categoria']=='Ministro Cristiano'])
+    minL = len(df[df['Categoria']=='Ministro Licenciado'])
+    minO  = len(df[df['Categoria']=='Ministro Ordenado'])
 
-minCNo = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='NO')])
-minCSi = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='SI')])
-minCPend = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='PENDIENTE')])
+    minCNo = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='NO')])
+    minCSi = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='SI')])
+    minCPend = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='PENDIENTE')])
 
-minLNo = len(df[(df['Categoria']=='Ministro Licenciado') & (df['paycon']=='NO')])
-minLSi = len(df[(df['Categoria']=='Ministro Licenciado') & (df['paycon']=='SI')])
-minLPend = len(df[(df['Categoria']=='Ministro Licenciado') & (df['paycon']=='PENDIENTE')])
+    minLNo = len(df[(df['Categoria']=='Ministro Licenciado') & (df['paycon']=='NO')])
+    minLSi = len(df[(df['Categoria']=='Ministro Licenciado') & (df['paycon']=='SI')])
+    minLPend = len(df[(df['Categoria']=='Ministro Licenciado') & (df['paycon']=='PENDIENTE')])
 
-minONo = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='NO')])
-minOSi = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='SI')])
-minOPend = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='PENDIENTE')])
+    minONo = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='NO')])
+    minOSi = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='SI')])
+    minOPend = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='PENDIENTE')])
 
-dftot = pd.DataFrame([(minC, minCNo, minCPend, minCSi),
-                      (minL, minLNo, minLPend, minLSi),
-                      (minO, minONo, minOPend, minOSi)],
-                      index=['Ministro Cristiano', 'Ministro Licenciado', 'Ministro Ordenado'],
-                      columns=('Total','NO registrados', 'Pendientes', 'Registrados'))
+    dftot = pd.DataFrame([(minC, minCNo, minCPend, minCSi),
+                          (minL, minLNo, minLPend, minLSi),
+                          (minO, minONo, minOPend, minOSi)],
+                          index=['Ministro Cristiano', 'Ministro Licenciado', 'Ministro Ordenado'],
+                          columns=('Total','NO registrados', 'Pendientes', 'Registrados'))
 
-st.dataframe(dftot)
-
+    st.dataframe(dftot)
+    
+else:
+    
+    st.write('Distrito = TODOS')
+    totales = [len(df[df['Categoria']==categoria]) for categoria in categorias]
+    #print(totales, type(totales))
+    paycons = ['SI','NO','PENDIENTE']
+    parDp = [(dtto, cat, payc, len(df[(df['Categoria']==cat) & (df['paycon']==payc) & (df['Distrito']==dtto)])) for dtto in distritos for cat in categorias for payc in paycons]
+    #print(parDp)
+    newdf = pd.DataFrame(parDp, columns = ['Distrito', 'Categoria', 'Registro/Pago', 'Numero'])
+    st.DataFrame(newdf)
+    
 with st.expander('ver data'):
     st.dataframe(df.style.apply(row_style, axis=1))
     
