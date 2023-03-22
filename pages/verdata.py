@@ -40,10 +40,6 @@ df.rename(columns={"key": "cedula"}, inplace=True) # cambia el nombre de la colu
 df = df.reindex(columns=['cedula', 'Nombres', 'Apellidos','Categoria','Email','Telefono','Distrito','Modalidad','Status', 'ReporteCertif','paycon','fuenteOrigen','referenciaPago','fechaPago','montoPago']) #Reordena las columnas como se mostraran
 df.style.apply(row_style, axis=1)  #Coloriza las filas
 
-with st.expander('ver data'):
-    #df
-    st.dataframe(df.style.apply(row_style, axis=1))
-
 minC = len(df[df['Categoria']=='Ministro Cristiano'])
 minL = len(df[df['Categoria']=='Ministro Licenciado'])
 minO  = len(df[df['Categoria']=='Ministro Ordenado'])
@@ -64,10 +60,13 @@ dftot = pd.DataFrame([(minC, minCNo, minCPend, minCSi),
                       (minL, minLNo, minLPend, minLNo),
                       (minO, minONo, minOPend, minOSi)],
                       index=['Ministros Cristianos', 'Ministros Licenciados', 'Ministros Ordenados'],
-                      columns=('Total','No registrados', 'Pendientes', 'Registrados'))
+                      columns=('Total','NO registrados', 'Pendientes', 'Registrados'))
 
 st.dataframe(dftot)
 
+with st.expander('ver data'):
+    st.dataframe(df.style.apply(row_style, axis=1))
+    
 regresar = st.button('Volver')
 if regresar:
     switch_page('logmi')
