@@ -43,6 +43,31 @@ df.style.apply(row_style, axis=1)  #Coloriza las filas
 with st.expander('ver data'):
     #df
     st.dataframe(df.style.apply(row_style, axis=1))
+
+minC = len(df[df['Categoria']=='Ministro Cristiano'])
+minL = len(df[df['Categoria']=='Ministro Licenciado'])
+minO  = len(df[df['Categoria']=='Ministro Ordenado'])
+
+minCNo = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='NO')])
+minCSi = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='SI')])
+minCPend = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='PENDIENTE')])
+
+minLNo = len(df[(df['Categoria']=='Ministro Licenciado') & (df['paycon']=='NO')])
+minLSi = len(df[(df['Categoria']=='Ministro Licenciado') & (df['paycon']=='SI')])
+minLPend = len(df[(df['Categoria']=='Ministro Licenciado') & (df['paycon']=='PENDIENTE')])
+
+minONo = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='NO')])
+minOSi = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='SI')])
+minOPend = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='PENDIENTE')])
+
+dftot = pd.DataFrame([(minC, minCNo, minCPend, minCSi),
+                      (minL, minLNo, minLPend, minLNo),
+                      (minO, minONo, minOPend, minOSi)],
+                      index=['Ministros Cristianos', 'Ministros Licenciados', 'Ministros Ordenados'],
+                      columns=('Total','No registrados', 'Pendientes', 'Registrados'))
+
+st.dataframe(dftot)
+
 regresar = st.button('Volver')
 if regresar:
     switch_page('logmi')
