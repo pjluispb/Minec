@@ -15,17 +15,26 @@ logina = st.session_state['logina']
 st.image(imagen1)
 st.image(imagen2)
 st.subheader('Bienvenid@ ' + logina['user'])
-st.write('Eres ****' + logina['tipou'] + '**** y puedes editar datos del distrito: ****' + logina['Distrito'] + '****')
+if logina['tipou']=='AdminRegistro':
+    st.write('Eres _Representante de Minec_ para todos los distritos')
+else:
+    st.write('Eres  _Representante de MINEC_ para el distrito ****' + logina['Distrito'] + '**** y por eso puedes ver la data del distrito y actualizar algunos registros')
 st.subheader('Que deseas hacer?')
-
-acciones = ['⏩','ACTUALIZAR', 'REGISTRAR', 'VER DATA']
-st.write('Seleccionar Accion')
+if logina['tipou']=='AdminRegistro':
+    acciones = ['⏩', 'VER DATA', 'ACTUALIZAR', 'REGISTRAR' ]
+else:
+    acciones = ['⏩', 'VER DATA', 'ACTUALIZAR' ]
+st.write('Seleccionar Acción')
 selector = st.radio('****Seleccionar Acción****', acciones, horizontal=True, label_visibility='collapsed',)
 #st.write(selector)
 if selector=='ACTUALIZAR':
     st.write('Actualizar Data')
-    switch_page('askCed-deta')
+    switch_page('askCed-detav02')
 if selector=='REGISTRAR':
-    switch_page('newReg-deta')
+    switch_page('newReg-detav02')
 if selector=='VER DATA':
     switch_page('verdata')
+
+regresar = st.button('Volver')
+if regresar:
+    switch_page('logmi')
