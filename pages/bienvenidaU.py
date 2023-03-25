@@ -29,9 +29,9 @@ selector = st.radio('****Seleccionar Acción****', acciones, horizontal=True, la
 #st.write(selector)
 if selector=='ACTUALIZAR':
     st.write('Actualizar Data')
-    switch_page('askCed-detav02')
+    switch_page('askCed-deta')
 if selector=='REGISTRAR':
-    switch_page('newReg-detav02')
+    switch_page('newReg-deta')
 if selector=='VER DATA':
     switch_page('verdata')
 
