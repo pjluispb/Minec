@@ -3,6 +3,7 @@ import pandas as pd
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 from deta import Deta
+from streamlit_echarts import st_echarts
 
 from PIL import Image
 
@@ -66,9 +67,29 @@ if dtto!='':
                           (minO, minONo, minOPend, minOSi)],
                           index=['Ministro Cristiano', 'Ministro Licenciado', 'Ministro Ordenado'],
                           columns=('Total','NO registrados', 'Pendientes', 'Registrados'))
+    options = {
+        "tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow"}},
+        "legend": {"data": ["No Registrado", "Pendiente",  "Registrado"]},
+        "grid": {"left": "3%", "right": "4%", "bottom": "3%", "containLabel": True},
+        "xAxis": {"type": "value"},
+        "yAxis": {"type": "category", "data": ['M. Cristiano', 'M. Licenciado', 'M. Ordenado'],},
+        "series": [
+            {"name": "No Registrado","type": "bar","stack": "total","label": {"show": True}, 
+             "emphasis": {"focus": "series"}, "data": [minCNo,minLNo,minONo],},
+            {"name": "Pendiente", "type": "bar", "stack": "total","label": {"show": True}, 
+             "emphasis": {"focus": "series"}, "data": [minCPend,minLPend,minOPend],},
+            {"name": "Registrado", "type": "bar","stack": "total","label": {"show": True}, 
+             "emphasis": {"focus": "series"}, "data":  [minCSi,minLSi,minOSi],},
+        ],
+    }
+        
 
-    with st.expander('ver consolidado del distrito'):
+
+    with st.expander('Consolidado del distrito ' + dtto):
+        st.subheader('Resumen '+dtto)
         st.dataframe(dftot)
+        st.subheader('Gráfico '+dtto)
+        st_echarts(options=options, height = '250px')
     
 else:
     totales = [len(df[df['Categoria']==categoria]) for categoria in categorias]
