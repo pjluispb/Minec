@@ -95,11 +95,50 @@ else:
     totales = [len(df[df['Categoria']==categoria]) for categoria in categorias]
     #print(totales, type(totales))
     paycons = ['SI','NO','PENDIENTE']
-    parDp = [(dtto, cat, payc, len(df[(df['Categoria']==cat) & (df['paycon']==payc) & (df['Distrito']==dtto)])) for dtto in distritos for cat in categorias for payc in paycons]
-    #print(parDp)
-    newdf = pd.DataFrame(parDp, columns = ['Distrito', 'Categoria', 'Registro/Pago', 'Numero'])
-    with st.expander('ver consolidado de todos los distritos'):
-        st.dataframe(newdf)
+    with st.expander('Ver consolidado de todos los distritos'):
+        for distto in distritos:
+            dfdtto = df[df['Distrito']==distto]
+            # totales
+            minC = len(dfdtto[dfdtto['Categoria']=='Ministro Cristiano'])
+            minL = len(dfdtto[dfdtto['Categoria']=='Ministro Licenciado'])
+            minO  = len(dfdtto[dfdtto['Categoria']=='Ministro Ordenado'])
+            # fila minC
+            minCNo = len(dfdtto[(dfdtto['Categoria']=='Ministro Cristiano') & (dfdtto['paycon']=='NO')])
+            minCSi = len(dfdtto[(dfdtto['Categoria']=='Ministro Cristiano') & (dfdtto['paycon']=='SI')])
+            minCPend = len(dfdtto[(dfdtto['Categoria']=='Ministro Cristiano') & (dfdtto['paycon']=='PENDIENTE')])
+            # fila minL
+            minLNo = len(dfdtto[(dfdtto['Categoria']=='Ministro Licenciado') & (dfdtto['paycon']=='NO')])
+            minLSi = len(dfdtto[(dfdtto['Categoria']=='Ministro Licenciado') & (dfdtto['paycon']=='SI')])
+            minLPend = len(dfdtto[(dfdtto['Categoria']=='Ministro Licenciado') & (dfdtto['paycon']=='PENDIENTE')])
+            # minO
+            minONo = len(dfdtto[(dfdtto['Categoria']=='Ministro Ordenado') & (dfdtto['paycon']=='NO')])
+            minOSi = len(dfdtto[(dfdtto['Categoria']=='Ministro Ordenado') & (dfdtto['paycon']=='SI')])
+            minOPend = len(dfdtto[(dfdtto['Categoria']=='Ministro Ordenado') & (dfdtto['paycon']=='PENDIENTE')])
+            dftotXdtto = pd.DataFrame([(minC, minCNo, minCPend, minCSi),
+                                (minL, minLNo, minLPend, minLSi),
+                                (minO, minONo, minOPend, minOSi)],
+                                index=['Ministros Cristianos', 'Ministros Licenciados', 'Ministros Ordenados'],
+                                columns=('Total', 'NO registrados', 'Pendientes', 'Registrados'))
+            options = {
+            "tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow"}},
+            "legend": {"data": ["No Registrado", "Pendiente",  "Registrado"]},
+            "grid": {"left": "3%", "right": "4%", "bottom": "3%", "containLabel": True},
+            "xAxis": {"type": "value"},
+            "yAxis": {"type": "category", "data": ['M. Cristiano', 'M. Licenciado', 'M. Ordenado'],},
+            "series": [
+                {"name": "No Registrado","type": "bar","stack": "total","label": {"show": True}, 
+                 "emphasis": {"focus": "series"}, "data": [minCNo,minLNo,minONo],},
+                {"name": "Pendiente", "type": "bar", "stack": "total","label": {"show": True}, 
+                 "emphasis": {"focus": "series"}, "data": [minCPend,minLPend,minOPend],},
+                {"name": "Registrado", "type": "bar","stack": "total","label": {"show": True}, 
+                 "emphasis": {"focus": "series"}, "data":  [minCSi,minLSi,minOSi],},
+            ],
+        }
+        
+            st.subheader(distto)
+            st.dataframe(dftotXdtto)
+            st_echarts(options=options, height = '250px')
+            st.write('---')
     
 with st.expander('ver data'):
     st.dataframe(df.style.apply(row_style, axis=1))
