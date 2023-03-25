@@ -116,9 +116,9 @@ if b1:
                         st.write('**Correo electronico**')
                         st.info(registro['correo'], icon="✉️")
                         st.write('**Origen (Banco-Paypal-Zelle-Efectivo-Otros)**')
-                        st.info(registro['fuenteOrigen'], icon="✉️")
+                        st.info(registro['fuenteOrigen'], icon="💳")
                         st.write('**Nro de referencia del pago (últimos 6 dígitos)**')
-                        st.info(registro['referenciaPago'], icon="✉️")
+                        st.info(registro['referenciaPago'], icon="🔢")
                 with col2:
                         st.info(registro['key'], icon="ℹ️")
                         st.write('**Apellidos**')
@@ -126,9 +126,9 @@ if b1:
                         st.write('**Teléfono**')
                         st.success(registro['Teléfono'], icon="📞")
                         st.write('**Fecha de Pago**')
-                        st.info(registro['fechaPago'], icon="✉️")
+                        st.info(registro['fechaPago'], icon="📆")
                         st.write('**Monto de Pago**')
-                        st.info(registro['montoPago'], icon="✉️")
+                        st.info(registro['montoPago'], icon="💴")
                         
 
                 # #df.to_csv("Prondanmin23.csv")
