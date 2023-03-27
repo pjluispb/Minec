@@ -10,6 +10,9 @@ imagen2 = Image.open('minecLogoTitle.jpeg')
 
 deta = Deta(st.secrets["deta_key"])
 encprof = deta.Base('ProndanminFull01')
+montopay = deta.Base('MontoAPagar')
+montoApagar = montopay.fetch()
+
 logina = st.session_state['logina']
 #logina
 st.image(imagen1)
@@ -60,12 +63,23 @@ if b0:
                                 telefono = ph1.text_input('Teléfono: :telephone_receiver:',value = first['Telefono'])
                                 distrito = ph1.text_input('Distrito:',value = first['Distrito'], disabled=True)
                                 catasp = ph1.text_input('Categoría que aspira: :male-judge:',value = first['Categoria'], disabled=True)
+                                ph1.write('---')
+                                ph1.subheader('Datos acerca del pago')
+                                if first['paycon']=='PENDIENTE':
+                                        ph1.write('OBSERVACION: ⚠️:orange[****Su pago aún no ha sido confirmado****] ⚠️Puede realizar cambios en los datos de pago en el caso que sea necesario')
+                                elif first['paycon']=='NO':
+                                        ph1.write('OBSERVACION:👁️‍🗨️ :red[****Aún NO ha realizado ningún pago.****] 👁️‍🗨️Realize y registre su pago ahora')
+                                else: ph1.write('OBSERVACION:✅ :green[****Pago confirmado. Inscripción realizada****] ✅Gracias por su diligencia')
+                                modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
+                                if modalidad=='Virtual': montoAcancelar = montoApagar.items[0]['MontoAPagarVirtual']
+                                else: montoAcancelar = montoApagar.items[0]['MontoAPagarPresencial']
                                 if first['paycon'] == 'SI': 
                                         valpay = True
                                         pagoConfirmado = 'SI'
                                 else: 
                                         valpay = False
                                         pagoConfirmado = 'PENDIENTE'
+                                        ph1.write('➡️➡️➡️ _Monto a cancelar por modalidad_   ↔️:red[ **'+ modalidad+ ': Bs '+montoAcancelar+'** ]')
                                 fuenteOrigen = ph1.text_input('Origen del pago(Banco-Paypal-Zelle-Efectivo-Otros)', value = first['fuenteOrigen'], disabled = valpay)
                                 fechaPago = ph1.text_input('Fecha de pago', value = first['fechaPago'], disabled = valpay)
                                 referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 6 dígitos)', value = first['referenciaPago'], disabled = valpay)
@@ -93,7 +107,9 @@ if b1:
                            'fuenteOrigen': fuenteOrigen,
                            'fechaPago': fechaPago,
                            'referenciaPago': referenciaPago,
-                           'montoPago': montoPago}
+                           'montoPago': montoPago,
+                           'MontoApagar': montoAcancelar,
+                           'Modalidad': modalidad}
 
                 encprof.update(updates, cedula)
                 registro = encprof.get(cedula)
