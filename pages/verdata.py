@@ -43,7 +43,7 @@ else:
 #st.write(dtto, len(dtto))
 #st.write(db_content)
 
-distritos = ['Andino', 'Centro', 'Centro Llanos', 'Falcón', 'Lara', 'Llanos', 'Llanos Occidentales', 'Metropolitano', 'Nor Oriente', 'Sur Oriente', 'Yaracuy', 'Zulia']
+distritos = ['Andino', 'Centro', 'Centro Llanos', 'Falcón', 'Lara', 'Llanos Occidentales', 'Metropolitano', 'Nor Oriente', 'Sur Oriente', 'Yaracuy', 'Zulia']
 categorias = ['Ministro Ordenado', 'Ministro Licenciado', 'Ministro Cristiano']
 totalizadores = ['Total', 'NO registrados', 'Pendientes', 'Registrados']
 
