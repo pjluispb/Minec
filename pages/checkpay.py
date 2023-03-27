@@ -60,7 +60,7 @@ paycdb = deta.Base('payconf')
 payc = paycdb.fetch()
 
 df = pd.DataFrame(payc.items)
-print(df)
+#print(df)
 
 dfqfinal = getdfqfinal(gc)
 
@@ -80,7 +80,9 @@ for t in dfqfinal:
                 "DESCRIPCION": str(row['DESCRIPCION']),
                 "INGRESO": str(row['INGRESO']),
                 "confirmado":'',
-                "nroFuente":''
+                "nroFuente":'',
+                'Diferencia': '-',
+                'montoApagar': '-'
             }
             if str(row['REFERENCIA'])!='0':
                 paycdb.put(registro)
