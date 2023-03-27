@@ -10,6 +10,9 @@ imagen2 = Image.open('minecLogoTitle.jpeg')
 
 deta = Deta(st.secrets["deta_key"])
 encprof = deta.Base('ProndanminFull01')
+montopay = deta.Base('MontoAPagar')
+montoApagar = montopay.fetch()
+#st.write(montoApagar.items[0]['MontoAPagarVirtual'], montoApagar.items[0]['MontoAPagarPresencial'])
 
 logina = st.session_state['logina']
 #logina
@@ -29,15 +32,15 @@ with st.form('nuevo registro'):
         st.write('Distrito : ****' + distrito + '****')
     else:
         distrito = st.selectbox('Distrito:',['Andino','Centro','Centro Llanos', 'Falcón','Lara', 'Llanos','Llanos Occidentales','Metropolitano','Nor Oriente','Sur Oriente','Yaracuy','Zulia'])
-    pagoConfirmado = 'PENDIENTE'
-    fuenteOrigen = st.text_input('Origen del pago(Banco-Paypal-Zelle-Efectivo-Otros)', value = '-')
-    fechaPago = st.text_input('Fecha de pago', value='-')
-    referenciaPago = st.text_input('Nro de referencia del pago (últimos 6 dígitos)',value='-')
-    montoPago = st.text_input('Monto pagado', value='-')
+    categoria = st.selectbox(label= 'Categoría :', options=['Ministro Distrital','Ministro Cristiano','Ministro Licenciado','Ministro Ordenado'])
+    
+
 
     registrar = st.form_submit_button('Registrar la nueva entrada')
     if registrar:
-        categoria, modalidad, status, observacion = 'S/A', 'S/A', 'S/A', 'S/A'
+        modalidad, montoAcancelar, pagoConfirmado, fuenteOrigen = '-', '-', '-', '-'
+        fechaPago, referenciaPago, montoPago = '-', '-', '-'
+        status, observacion =  'S/A', 'S/A'
         if (fuenteOrigen != '-') or (referenciaPago != '-') or (montoPago != '-') or (fechaPago != '-'):
             pagoConfirmado = 'PENDIENTE'
         else: 
@@ -62,7 +65,8 @@ with st.form('nuevo registro'):
                 'fuenteOrigen': fuenteOrigen,
                 'fechaPago': fechaPago,
                 'referenciaPago': referenciaPago,
-                'montoPago': montoPago
+                'montoPago': montoPago,
+                'MontoApagar': montoAcancelar
                 }
             #registro
             encprof.put(registro)
@@ -83,10 +87,10 @@ with st.form('nuevo registro'):
                 st.write('**Correo Electronico**')
                 st.success(registro['Email'], icon="📧")
                 st.write('--------------')
-                st.write('**Origen del Pago**')
-                st.success(registro['fuenteOrigen'], icon="📧")
-                st.write('**Número de Referencia del Pago**')
-                st.success(registro['referenciaPago'], icon="📧")
+                #st.write('**Origen del Pago**')
+                #st.success(registro['fuenteOrigen'], icon="📧")
+                #st.write('**Número de Referencia del Pago**')
+                #st.success(registro['referenciaPago'], icon="📧")
             with col2:
                 st.write('**Teléfono**')
                 st.info(registro['Telefono'], icon="📞")
@@ -99,10 +103,10 @@ with st.form('nuevo registro'):
                 st.write('**.**')
                 st.success('-',icon="📧")
                 st.write('-----------------')
-                st.write('**Fecha del Pago**')
-                st.success(registro['fechaPago'], icon="📧")
-                st.write('**Monto Pagado**')
-                st.success(registro['montoPago'], icon="📧")
+                #st.write('**Fecha del Pago**')
+                #st.success(registro['fechaPago'], icon="📧")
+                #st.write('**Monto Pagado**')
+                #st.success(registro['montoPago'], icon="📧")
 
 regresar = st.button('Volver')
 if regresar:
