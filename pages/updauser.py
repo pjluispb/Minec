@@ -60,7 +60,7 @@ if b0:
                                 correo = ph1.text_input('Correo Electrónico: 	:email:',value = first['Email'])
                                 telefono = ph1.text_input('Teléfono: :telephone_receiver:',value = first['Telefono'])
                                 distrito = ph1.text_input('Distrito:',value = first['Distrito'], disabled=True)
-                                catasp = ph1.text_input('Categoría: :male-judge:',value = first['Categoria'], disabled=True)
+                                catasp = ph1.text_input('Categoría: :male-judge: _(Esta información proviene de los registros de cada distrito)_',value = first['Categoria'], disabled=True)
                                 ph1.write('---')
                                 ph1.write('Datos acerca del pago')
                                 modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
