@@ -69,7 +69,7 @@ if b0:
                                 if first['paycon'] == 'SI': valpay = True
                                 else: 
                                         valpay = False
-                                        ph1.write('➡️➡️➡️ _Monto a cancelar por modalidad_   ↔️:red[ **'+ modalidad+ ': Bs '+montoAcancelar+'** ]')
+                                        ph1.write('➡️➡️➡️➡️ _Monto a cancelar por modalidad_   ↔️:red[ **'+ modalidad+ ': Bs '+montoAcancelar+'** ]')
                                 pagoConfirmado = ph1.text_input('Pago Confirmado', value = first['paycon'], disabled = True)
                                 fuenteOrigen = ph1.text_input('Origen del pago(Transferencia, Pago Movil)', value = first['fuenteOrigen'], disabled = valpay)
                                 fechaPago = ph1.text_input('Fecha de pago _(dd/mm/aa)_', value = first['fechaPago'], disabled = valpay)
