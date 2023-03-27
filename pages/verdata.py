@@ -39,6 +39,7 @@ if dtto!='':
     db_content = encprof.fetch({'Distrito':dtto}).items
 else:
     db_content = encprof.fetch().items
+st.write(dtto)
 st.write(db_content)
 distritos = ['Andino', 'Centro', 'Centro Llanos', 'Falcón', 'Lara', 'Llanos', 'Llanos Occidentales', 'Metropolitano', 'Nor Oriente', 'Sur Oriente', 'Yaracuy', 'Zulia']
 categorias = ['Ministro Ordenado', 'Ministro Licenciado', 'Ministro Cristiano']
