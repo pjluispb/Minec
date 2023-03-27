@@ -104,7 +104,7 @@ if b1:
                 updates = {'Nombres': nombres,
                            'Apellidos': apellidos,
                            'correo': correo,
-                           'Teléfono': telefono,
+                           'Telefono': telefono,
                            'paycon': newpaycon,
                            'fuenteOrigen': fuenteOrigen,
                            'fechaPago': fechaPago,
@@ -135,7 +135,7 @@ if b1:
                         st.write('**Apellidos**')
                         st.info(registro['Apellidos'], icon="ℹ️")
                         st.write('**Teléfono**')
-                        st.success(registro['Teléfono'], icon="📞")
+                        st.success(registro['Telefono'], icon="📞")
                         st.write('**Monto A Cancelar**')
                         st.info(registro['MontoApagar'], icon="💴")
                         st.write('**Fecha de Pago**')
