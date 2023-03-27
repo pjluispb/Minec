@@ -21,27 +21,43 @@ def inicializaConexiones():
     res=accesos.fetch()
     return deta, gc, res
 
+
 def row_style(row):
-    if row['confirmado'] == 'SI':
+    if row['confirmado'] == 'SI++':
+        return pd.Series('background-color: #7986cb; color:#000000', row.index)
+    elif row['confirmado'] == 'PENDIENTE x DIFERENCIA':
+        return pd.Series('background-color: #ff6f00; color:#000000', row.index)
+    elif row['confirmado'] == 'SI':
         return pd.Series('background-color: #8ede99; color:#000000', row.index)
+    elif row['confirmado'] == 'PENDIENTE':
+        return pd.Series('background-color: #fdd834; color:#000000', row.index)
     else:
         return pd.Series('', row.index)
     
 def row_style2(row):
-    if row['paycon'] == 'SI':
+    if row['paycon'] == 'SI++':
+        return pd.Series('background-color: #7986cb; color:#000000', row.index)
+    elif row['paycon'] == 'PENDIENTE x DIFERENCIA':
+        return pd.Series('background-color: #ff6f00; color:#000000', row.index)
+    elif row['paycon'] == 'SI':
         return pd.Series('background-color: #8ede99; color:#000000', row.index)
     elif row['paycon'] == 'PENDIENTE':
-        return pd.Series('background-color: #fdd834; color:#000229', row.index)
+        return pd.Series('background-color: #fdd834; color:#000000', row.index)
     else:
         return pd.Series('', row.index)
-    
-logina = st.session_state['logina']
+try:   
+    logina = st.session_state['logina']
+except:
+    st.write('se ha perdido la conexion')
 deta, gc, res = inicializaConexiones()
 
 paycdb = deta.Base('payconf')
 payc = paycdb.fetch()
 prondadb = deta.Base('ProndanminFull01')
 pronda = prondadb.fetch()
+montopay = deta.Base('MontoAPagar')
+montoApagar = montopay.fetch()
+margenp = montoApagar.items[0]['margenp']
 
 progress_text = "Realizando el match entre usuarios y pagos. Por favor espere un momento"
 my_bar = st.progress(0, text=progress_text)
@@ -52,28 +68,48 @@ for percent_complete in range(100):
 dfpay = pd.DataFrame(payc.items)
 dfpron = pd.DataFrame(pronda.items)
 dfpay = dfpay.drop('key', axis=1)
-dfpay.style.apply(row_style, axis=1)  #Coloriza las filas
+dfpay.style.apply(row_style, axis=1)  #Coloriza las filas de tabla de pagos
 with st.expander('Tabla de pagos'):
+    dfpay = dfpay.reindex(columns=['REFERENCIA', 'DESCRIPCION', 'FECHA', 'INGRESO', 'montoApagar', 'Diferencia', 'confirmado', 'nroFuente'])
     st.dataframe(dfpay.style.apply(row_style, axis=1))
-pendientes = [registro for registro in pronda.items if registro['paycon']=='PENDIENTE']
+    #st.dataframe(dfpay)
+#pronda.items
+try:
+    pendientes = [registro for registro in pronda.items if registro['paycon']=='PENDIENTE']
+except:
+     st.write('error en pendientes')
 dfpendientes = pd.DataFrame(pendientes)
 # print('\n'*3, dfpendientes)
 # print('\n'*5, 'Haciendo Match')
 for index, row in dfpendientes.iterrows():
-        # print(row['referenciaPago'])
+        print(row['referenciaPago'])
         refbuscada = paycdb.fetch({"key":str(row['referenciaPago'])})
         if len(refbuscada.items) > 0:
-                regProndXupd = {'paycon':'SI'}
+                diferencia = int(row['MontoApagar'])-int(row['montoPago'])
+                if abs(diferencia)<=int(margenp): vpayc = 'SI'
+                else:
+                     if int(row['montoPago']) > int(row['MontoApagar']): vpayc = 'SI++'
+                     else: vpayc = 'PENDIENTE x DIFERENCIA'
+                regProndXupd = {'paycon':vpayc,  'Diferencia':str(diferencia)}
+                regPaycXupd ={'confirmado':vpayc, 'nroFuente':str(row['key']), 'Diferencia':str(diferencia), 'montoApagar':str(row['MontoApagar'])}
+                print('diferencia = ',diferencia, 'vpayc = ',vpayc)
+
+                # print('Diferencia = ',diferencia)
+                
                 clavePronda = str(row['key'])
-                regPaycXupd = {'confirmado':'SI', 'nroFuente':str(row['key'])}
+                #regPaycXupd = {'confirmado':'SI', 'nroFuente':str(row['key'])}
                 clavePayc = refbuscada.items[0]['key']
                 # print('Actualiza en Payconf registro clave', clavePayc, 'con los datos :', regPaycXupd)
                 paycdb.update(regPaycXupd, clavePayc)
                 # print('Actualiza en ProndaminFull registro clave', clavePronda, 'con los datos :', regProndXupd)
                 prondadb.update(regProndXupd, clavePronda)
+        else:
+             print(row['referenciaPago'], 'NO encontrado')
 
 with st.expander('Tabla de usuarios'):
+    dfpron = dfpron.reindex(columns=['Distrito', 'Categoria', 'key', 'Nombres', 'Apellidos', 'paycon', 'Modalidad', 'MontoApagar', 'montoPago', 'Diferencia', 'fuenteOrigen', 'referenciaPago', 'fechaPago', 'correo', 'Telefono'])
     st.dataframe(dfpron.style.apply(row_style2, axis=1))
+    #st.dataframe(dfpron)
 
 regresar = st.button('Volver')
 if regresar:
