@@ -101,8 +101,8 @@ if b1:
                 b0=False
                 updates = {'Nombres': nombres,
                            'Apellidos': apellidos,
-                           'correo': correo,
-                           'Teléfono': telefono,
+                           'Email': correo,
+                           'Telefono': telefono,
                            'paycon': pagoConfirmado,
                            'fuenteOrigen': fuenteOrigen,
                            'fechaPago': fechaPago,
@@ -118,7 +118,7 @@ if b1:
                         st.write('**Nombres**')
                         st.success(registro['Nombres'], icon="📛")
                         st.write('**Correo electronico**')
-                        st.info(registro['correo'], icon="✉️")
+                        st.info(registro['Email'], icon="✉️")
                         st.write('**Origen de Pago**')
                         st.info(registro['fuenteOrigen'], icon="💳")
                         st.write('**Número de Referencia del Pago**')
@@ -127,7 +127,7 @@ if b1:
                         st.write('**Apellidos**')
                         st.info(registro['Apellidos'], icon="ℹ️")
                         st.write('**Teléfono**')
-                        st.success(registro['Teléfono'], icon="📞")
+                        st.success(registro['Telefono'], icon="📞")
                         st.write('**Fecha de Pago**')
                         st.info(registro['fechaPago'], icon="📆")
                         st.write('**Monto PAgado**')
