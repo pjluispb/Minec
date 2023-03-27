@@ -9,6 +9,8 @@ imagen2 = Image.open('minecLogoTitle.jpeg')
 
 deta = Deta(st.secrets["deta_key"])
 encprof = deta.Base('ProndanminFull01')
+montopay = deta.Base('MontoAPagar')
+montoApagar = montopay.fetch()
 #logina = st.session_state['logina']
 #logina
 st.image(imagen1)
@@ -27,7 +29,7 @@ elif edo=='confirmar':
         b1=True
 ch_data = False
 if b0:
-        with st.expander(label="Actualizar datos del ministro", expanded=True):
+        with st.expander(label="-", expanded=True):
                 ph1=st.container() 
                 ph1.subheader(' Bienvenido ministro a la aplicación de registro en cursos de la MINEC')
                 # ch_data = False
@@ -58,15 +60,20 @@ if b0:
                                 correo = ph1.text_input('Correo Electrónico: 	:email:',value = first['Email'])
                                 telefono = ph1.text_input('Teléfono: :telephone_receiver:',value = first['Telefono'])
                                 distrito = ph1.text_input('Distrito:',value = first['Distrito'], disabled=True)
-                                catasp = ph1.text_input('Categoría que aspira: :male-judge:',value = first['Categoria'], disabled=True)
-                                #st.write('Datos acerca del pago')
-                                #paycon = 'NO'
+                                catasp = ph1.text_input('Categoría: :male-judge:',value = first['Categoria'], disabled=True)
+                                ph1.write('---')
+                                ph1.write('Datos acerca del pago')
+                                modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
+                                if modalidad=='Virtual': montoAcancelar = montoApagar.items[0]['MontoAPagarVirtual']
+                                else: montoAcancelar = montoApagar.items[0]['MontoAPagarPresencial']
                                 if first['paycon'] == 'SI': valpay = True
-                                else: valpay = False
+                                else: 
+                                        valpay = False
+                                        ph1.write('➡️➡️➡️ _Monto a cancelar por modalidad_   ↔️:red[ **'+ modalidad+ ': Bs '+montoAcancelar+'** ]')
                                 pagoConfirmado = ph1.text_input('Pago Confirmado', value = first['paycon'], disabled = True)
-                                fuenteOrigen = ph1.text_input('Origen del pago(Banco-Paypal-Zelle-Efectivo-Otros)', value = first['fuenteOrigen'], disabled = valpay)
-                                fechaPago = ph1.text_input('Fecha de pago', value = first['fechaPago'], disabled = valpay)
-                                referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 6 dígitos)', value = first['referenciaPago'], disabled = valpay)
+                                fuenteOrigen = ph1.text_input('Origen del pago(Transferencia, Pago Movil)', value = first['fuenteOrigen'], disabled = valpay)
+                                fechaPago = ph1.text_input('Fecha de pago _(dd/mm/aa)_', value = first['fechaPago'], disabled = valpay)
+                                referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 4 dígitos)', value = first['referenciaPago'], disabled = valpay)
                                 montoPago = ph1.text_input('Monto pagado', value = first['montoPago'], disabled = valpay)
                         else:
                                 st.warning('El número de documento de identidad:id: ingresado **NO** aparece en nuestra base de datos.:file_cabinet: :arrow_right: intente de nuevo, y si luego de varios intentos no aparece su información, entonces tendrá que ponerse de acuerdo con el representante de MINEC de su distrito')
@@ -102,7 +109,9 @@ if b1:
                            'fuenteOrigen': fuenteOrigen,
                            'fechaPago': fechaPago,
                            'referenciaPago': referenciaPago,
-                           'montoPago': montoPago}
+                           'montoPago': montoPago,
+                           'MontoApagar': montoAcancelar,
+                           'Modalidad': modalidad}
                 #updates, cedula
 
                 encprof.update(updates, cedula)
@@ -115,9 +124,11 @@ if b1:
                         st.success(registro['Nombres'], icon="📛")
                         st.write('**Correo electronico**')
                         st.info(registro['correo'], icon="✉️")
-                        st.write('**Origen (Banco-Paypal-Zelle-Efectivo-Otros)**')
+                        st.write('**Modalidad**')
+                        st.info(registro['Modalidad'], icon="🖥️")
+                        st.write('**Origen (Transferencia, Pago Movil)**')
                         st.info(registro['fuenteOrigen'], icon="💳")
-                        st.write('**Nro de referencia del pago (últimos 6 dígitos)**')
+                        st.write('**Nro de referencia del pago (últimos 4 dígitos)**')
                         st.info(registro['referenciaPago'], icon="🔢")
                 with col2:
                         st.info(registro['key'], icon="ℹ️")
@@ -125,6 +136,8 @@ if b1:
                         st.info(registro['Apellidos'], icon="ℹ️")
                         st.write('**Teléfono**')
                         st.success(registro['Teléfono'], icon="📞")
+                        st.write('**Monto A Cancelar**')
+                        st.info(registro['MontoApagar'], icon="💴")
                         st.write('**Fecha de Pago**')
                         st.info(registro['fechaPago'], icon="📆")
                         st.write('**Monto de Pago**')
