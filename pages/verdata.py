@@ -145,7 +145,7 @@ else:
             "legend": {"data": ["No Registrado", "Pendiente",  "Registrado"]},
             "grid": {"left": "3%", "right": "4%", "bottom": "3%", "containLabel": True},
             "xAxis": {"type": "value"},
-            "yAxis": {"type": "category", "data": ['M. Cristiano', 'M. Licenciado', 'M. Ordenado'],},
+            "yAxis": {"type": "category", "data": ['M. Cristiano', 'M.Distrital','M. Licenciado', 'M. Ordenado'],},
             "series": [
                 {"name": "No Registrado","type": "bar","stack": "total","label": {"show": True}, 
                  "emphasis": {"focus": "series"}, "data": [minCNo,minDNo,minLNo,minONo],},
