@@ -56,10 +56,15 @@ if dtto!='':
     minC = len(df[df['Categoria']=='Ministro Cristiano'])
     minL = len(df[df['Categoria']=='Ministro Licenciado'])
     minO  = len(df[df['Categoria']=='Ministro Ordenado'])
+    minD  = len(df[df['Categoria']=='Ministro Distrital'])
 
     minCNo = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='NO')])
     minCSi = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='SI')])
     minCPend = len(df[(df['Categoria']=='Ministro Cristiano') & (df['paycon']=='PENDIENTE')])
+    
+    minDNo = len(df[(df['Categoria']=='Ministro Distrital') & (df['paycon']=='NO')])
+    minDSi = len(df[(df['Categoria']=='Ministro Distrital') & (df['paycon']=='SI')])
+    minDPend = len(df[(df['Categoria']=='Ministro Distrital') & (df['paycon']=='PENDIENTE')])
 
     minLNo = len(df[(df['Categoria']=='Ministro Licenciado') & (df['paycon']=='NO')])
     minLSi = len(df[(df['Categoria']=='Ministro Licenciado') & (df['paycon']=='SI')])
@@ -70,9 +75,10 @@ if dtto!='':
     minOPend = len(df[(df['Categoria']=='Ministro Ordenado') & (df['paycon']=='PENDIENTE')])
 
     dftot = pd.DataFrame([(minC, minCNo, minCPend, minCSi),
+                          (minD, minDNo, minDPend, minDSi),
                           (minL, minLNo, minLPend, minLSi),
                           (minO, minONo, minOPend, minOSi)],
-                          index=['Ministro Cristiano', 'Ministro Licenciado', 'Ministro Ordenado'],
+                          index=['Ministro Cristiano', 'Ministro Distrital', 'Ministro Licenciado', 'Ministro Ordenado'],
                           columns=('Total','NO registrados', 'Pendientes', 'Registrados'))
     options = {
         "tooltip": {"trigger": "axis", "axisPointer": {"type": "shadow"}},
@@ -82,11 +88,11 @@ if dtto!='':
         "yAxis": {"type": "category", "data": ['M. Cristiano', 'M. Licenciado', 'M. Ordenado'],},
         "series": [
             {"name": "No Registrado","type": "bar","stack": "total","label": {"show": True}, 
-             "emphasis": {"focus": "series"}, "data": [minCNo,minLNo,minONo],},
-            {"name": "Pendiente", "type": "bar", "stack": "total","label": {"show": True}, 
-             "emphasis": {"focus": "series"}, "data": [minCPend,minLPend,minOPend],},
-            {"name": "Registrado", "type": "bar","stack": "total","label": {"show": True}, 
-             "emphasis": {"focus": "series"}, "data":  [minCSi,minLSi,minOSi],},
+                 "emphasis": {"focus": "series"}, "data": [minCNo,minDNo,minLNo,minONo],},
+                {"name": "Pendiente", "type": "bar", "stack": "total","label": {"show": True}, 
+                 "emphasis": {"focus": "series"}, "data": [minCPend,minDPend,minLPend,minOPend],},
+                {"name": "Registrado", "type": "bar","stack": "total","label": {"show": True}, 
+                 "emphasis": {"focus": "series"}, "data":  [minCSi,minDSi,minLSi,minOSi],},
         ],
     }
         
@@ -109,19 +115,26 @@ else:
             minC = len(dfdtto[dfdtto['Categoria']=='Ministro Cristiano'])
             minL = len(dfdtto[dfdtto['Categoria']=='Ministro Licenciado'])
             minO  = len(dfdtto[dfdtto['Categoria']=='Ministro Ordenado'])
+            minD  = len(dfdtto[dfdtto['Categoria']=='Ministro Distrital'])
+            minD2 = dfdtto.loc[(dfdtto['Categoria'] == 'Ministro Distrital')].shape[0]
             # fila minC
-            minCNo = len(dfdtto[(dfdtto['Categoria']=='Ministro Cristiano') & (dfdtto['paycon']=='NO')])
-            minCSi = len(dfdtto[(dfdtto['Categoria']=='Ministro Cristiano') & (dfdtto['paycon']=='SI')])
-            minCPend = len(dfdtto[(dfdtto['Categoria']=='Ministro Cristiano') & (dfdtto['paycon']=='PENDIENTE')])
+            minCNo = dfdtto.loc[(df['Categoria'] == 'Ministro Cristiano') & (dfdtto['paycon'] == 'NO')].shape[0]
+            minCSi = dfdtto.loc[(df['Categoria'] == 'Ministro Cristiano') & (dfdtto['paycon'] == 'SI')].shape[0]
+            minCPend = dfdtto.loc[(df['Categoria'] == 'Ministro Cristiano') & (dfdtto['paycon'] == 'PENDIENTE')].shape[0]
+            # fila minD
+            minDNo = dfdtto.loc[(df['Categoria'] == 'Ministro Distrital') & (dfdtto['paycon'] == 'NO')].shape[0]
+            minDSi = dfdtto.loc[(df['Categoria'] == 'Ministro Distrital') & (dfdtto['paycon'] == 'SI')].shape[0]
+            minDPend = dfdtto.loc[(df['Categoria'] == 'Ministro Distrital') & (dfdtto['paycon'] == 'PENDIENTE')].shape[0]
             # fila minL
-            minLNo = len(dfdtto[(dfdtto['Categoria']=='Ministro Licenciado') & (dfdtto['paycon']=='NO')])
-            minLSi = len(dfdtto[(dfdtto['Categoria']=='Ministro Licenciado') & (dfdtto['paycon']=='SI')])
-            minLPend = len(dfdtto[(dfdtto['Categoria']=='Ministro Licenciado') & (dfdtto['paycon']=='PENDIENTE')])
+            minLNo = dfdtto.loc[(df['Categoria'] == 'Ministro Licenciado') & (dfdtto['paycon'] == 'NO')].shape[0]
+            minLSi = dfdtto.loc[(df['Categoria'] == 'Ministro Licenciado') & (dfdtto['paycon'] == 'SI')].shape[0]
+            minLPend = dfdtto.loc[(df['Categoria'] == 'Ministro Licenciado') & (dfdtto['paycon'] == 'PENDIENTE')].shape[0]
             # minO
-            minONo = len(dfdtto[(dfdtto['Categoria']=='Ministro Ordenado') & (dfdtto['paycon']=='NO')])
-            minOSi = len(dfdtto[(dfdtto['Categoria']=='Ministro Ordenado') & (dfdtto['paycon']=='SI')])
-            minOPend = len(dfdtto[(dfdtto['Categoria']=='Ministro Ordenado') & (dfdtto['paycon']=='PENDIENTE')])
+            minONo = dfdtto.loc[(df['Categoria'] == 'Ministro Ordenado') & (dfdtto['paycon'] == 'NO')].shape[0]
+            minOSi = dfdtto.loc[(df['Categoria'] == 'Ministro Ordenado') & (dfdtto['paycon'] == 'SI')].shape[0]
+            minOPend = dfdtto.loc[(df['Categoria'] == 'Ministro Ordenado') & (dfdtto['paycon'] == 'PENDIENTE')].shape[0]
             dftotXdtto = pd.DataFrame([(minC, minCNo, minCPend, minCSi),
+                                       (minD, minDNo, minDPend, minDSi),
                                 (minL, minLNo, minLPend, minLSi),
                                 (minO, minONo, minOPend, minOSi)],
                                 index=['Ministros Cristianos', 'Ministros Licenciados', 'Ministros Ordenados'],
@@ -134,11 +147,11 @@ else:
             "yAxis": {"type": "category", "data": ['M. Cristiano', 'M. Licenciado', 'M. Ordenado'],},
             "series": [
                 {"name": "No Registrado","type": "bar","stack": "total","label": {"show": True}, 
-                 "emphasis": {"focus": "series"}, "data": [minCNo,minLNo,minONo],},
+                 "emphasis": {"focus": "series"}, "data": [minCNo,minDNo,minLNo,minONo],},
                 {"name": "Pendiente", "type": "bar", "stack": "total","label": {"show": True}, 
-                 "emphasis": {"focus": "series"}, "data": [minCPend,minLPend,minOPend],},
+                 "emphasis": {"focus": "series"}, "data": [minCPend,minDPend,minLPend,minOPend],},
                 {"name": "Registrado", "type": "bar","stack": "total","label": {"show": True}, 
-                 "emphasis": {"focus": "series"}, "data":  [minCSi,minLSi,minOSi],},
+                 "emphasis": {"focus": "series"}, "data":  [minCSi,minDSi,minLSi,minOSi],},
             ],
         }
         
