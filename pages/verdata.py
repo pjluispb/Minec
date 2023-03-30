@@ -134,8 +134,7 @@ else:
             minOSi = dfdtto.loc[(df['Categoria'] == 'Ministro Ordenado') & (dfdtto['paycon'] == 'SI')].shape[0]
             minOPend = dfdtto.loc[(df['Categoria'] == 'Ministro Ordenado') & (dfdtto['paycon'] == 'PENDIENTE')].shape[0]
             
-            dftotXdtto = pd.DataFrame([(minC, minCNo, minCPend, minCSi),
-                                (minD, minDNo, minDPend, minDSi),
+            dftotXdtto = pd.DataFrame([(minC, minCNo, minCPend, minCSi), (minD, minDNo, minDPend, minDSi),
                                 (minL, minLNo, minLPend, minLSi),
                                 (minO, minONo, minOPend, minOSi)],
                                 index=['Ministros Cristianos', 'Ministros Licenciados', 'Ministros Ordenados'],
