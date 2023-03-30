@@ -36,9 +36,9 @@ else:
 deta = Deta(st.secrets["deta_key"])
 encprof = deta.Base('ProndanminFull01')
 if dtto!='':
-    db_content = encprof.fetch({'Distrito':dtto}).items
+    db_content = encprof.fetch({'Distrito':dtto}, limit=5000).items
 else:
-    db_content = encprof.fetch().items
+    db_content = encprof.fetch(limit=5000).items
     
 #st.write(dtto, len(dtto))
 #st.write(db_content)
