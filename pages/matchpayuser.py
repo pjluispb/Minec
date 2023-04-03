@@ -74,7 +74,7 @@ with st.expander('Tabla de pagos'):
     st.dataframe(dfpay.style.apply(row_style, axis=1))
     #st.dataframe(dfpay)
 #pronda.items
-#dfpron
+dfpron
 try:
     pendientes = [registro for registro in pronda.items if registro['paycon']=='PENDIENTE']
 except:
