@@ -13,8 +13,10 @@ imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
 
 def enu(s):
+    st.write('s= ',s)
     for i in s.split():
         i = i.replace(',', '.')
+        st.write(i)
     return(float(i))
 
 def inicializaConexiones():
