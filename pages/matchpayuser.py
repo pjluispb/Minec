@@ -96,7 +96,7 @@ dfpendientes = pd.DataFrame(pendientes)
 # print('\n'*3, dfpendientes)
 # print('\n'*5, 'Haciendo Match')
 for index, row in dfpendientes.iterrows():
-        st.write('referenciaPago = ',row['referenciaPago'])
+        st.write('referenciaPago = ',row['referenciaPago'][-4:])
         refbuscada = paycdb.fetch({"key":str(row['referenciaPago'])})
         if len(refbuscada.items) > 0:
                 diferencia = float(row['MontoApagar'])-enu(row['montoPago'])
