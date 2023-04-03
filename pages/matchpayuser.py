@@ -118,7 +118,7 @@ for index, row in dfpendientes.iterrows():
                 # print('Actualiza en ProndaminFull registro clave', clavePronda, 'con los datos :', regProndXupd)
                 prondadb.update(regProndXupd, clavePronda)
         else:
-             print(row['referenciaPago'], 'NO encontrado')
+             st.write(row['referenciaPago'], 'NO encontrado')
 
 with st.expander('Tabla de usuarios'):
     dfpron = dfpron.reindex(columns=['Distrito', 'Categoria', 'key', 'Nombres', 'Apellidos', 'paycon', 'Modalidad', 'MontoApagar', 'montoPago', 'Diferencia', 'fuenteOrigen', 'referenciaPago', 'fechaPago', 'correo', 'Telefono'])
