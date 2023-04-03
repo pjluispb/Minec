@@ -96,7 +96,7 @@ dfpendientes = pd.DataFrame(pendientes)
 # print('\n'*3, dfpendientes)
 # print('\n'*5, 'Haciendo Match')
 for index, row in dfpendientes.iterrows():
-        print(row['referenciaPago'])
+        st.write(row['referenciaPago'])
         refbuscada = paycdb.fetch({"key":str(row['referenciaPago'])})
         if len(refbuscada.items) > 0:
                 diferencia = float(row['MontoApagar'])-enu(row['montoPago'])
@@ -106,7 +106,7 @@ for index, row in dfpendientes.iterrows():
                      else: vpayc = 'PENDIENTE x DIFERENCIA'
                 regProndXupd = {'paycon':vpayc,  'Diferencia':str(diferencia)}
                 regPaycXupd ={'confirmado':vpayc, 'nroFuente':str(row['key']), 'Diferencia':str(diferencia), 'montoApagar':str(row['MontoApagar'])}
-                print('diferencia = ',diferencia, 'vpayc = ',vpayc)
+                st.write('diferencia = ',diferencia, 'vpayc = ',vpayc)
 
                 # print('Diferencia = ',diferencia)
                 
