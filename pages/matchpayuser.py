@@ -13,11 +13,16 @@ imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
 
 def enu(s):
-    st.write('s= ',s)
-    for i in s.split():
-        i = i.replace(',', '.')
-        st.write(i)
-    return(float(i))
+    x=[]
+    for i in string_var.split():
+        i = i.replace(',','.')
+        print('i =',i)
+        try:
+            # Convert word to float and add in list
+            x.append(float(i))
+        except ValueError :
+            pass
+    return(x[0])
 
 def inicializaConexiones():
     deta = Deta(st.secrets.deta_key)
