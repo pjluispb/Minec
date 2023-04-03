@@ -14,7 +14,7 @@ imagen2 = Image.open('minecLogoTitle.jpeg')
 
 def enu(s):
     x=[]
-    for i in string_var.split():
+    for i in s.split():
         i = i.replace(',','.')
         print('i =',i)
         try:
