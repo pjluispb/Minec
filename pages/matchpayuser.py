@@ -11,6 +11,12 @@ from google.oauth2 import service_account
 
 imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
+
+def enu(s):
+    for i in s.split():
+        i = i.replace(',', '.')
+    return(float(i))
+
 def inicializaConexiones():
     deta = Deta(st.secrets.deta_key)
     SCOPES = ('https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive')
@@ -86,10 +92,10 @@ for index, row in dfpendientes.iterrows():
         print(row['referenciaPago'])
         refbuscada = paycdb.fetch({"key":str(row['referenciaPago'])})
         if len(refbuscada.items) > 0:
-                diferencia = int(row['MontoApagar'])-int(row['montoPago'])
+                diferencia = float(row['MontoApagar'])-enu(row['montoPago'])
                 if abs(diferencia)<=int(margenp): vpayc = 'SI'
                 else:
-                     if int(row['montoPago']) > int(row['MontoApagar']): vpayc = 'SI++'
+                     if float(row['montoPago']) > enu(row['MontoApagar']): vpayc = 'SI++'
                      else: vpayc = 'PENDIENTE x DIFERENCIA'
                 regProndXupd = {'paycon':vpayc,  'Diferencia':str(diferencia)}
                 regPaycXupd ={'confirmado':vpayc, 'nroFuente':str(row['key']), 'Diferencia':str(diferencia), 'montoApagar':str(row['MontoApagar'])}
