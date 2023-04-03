@@ -97,7 +97,7 @@ dfpendientes = pd.DataFrame(pendientes)
 # print('\n'*5, 'Haciendo Match')
 for index, row in dfpendientes.iterrows():
         st.write('referenciaPago = ',row['referenciaPago'][-4:])
-        refbuscada = paycdb.fetch({"key":str(row['referenciaPago'])})
+        refbuscada = paycdb.fetch({"key":str(row['referenciaPago'][-4:])})
         if len(refbuscada.items) > 0:
                 diferencia = float(row['MontoApagar'])-enu(row['montoPago'])
                 if abs(diferencia)<=int(margenp): vpayc = 'SI'
