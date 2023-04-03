@@ -54,7 +54,7 @@ deta, gc, res = inicializaConexiones()
 paycdb = deta.Base('payconf')
 payc = paycdb.fetch()
 prondadb = deta.Base('ProndanminFull01')
-pronda = prondadb.fetch()
+pronda = prondadb.fetch(limit=5000)
 montopay = deta.Base('MontoAPagar')
 montoApagar = montopay.fetch()
 margenp = montoApagar.items[0]['margenp']
@@ -74,7 +74,7 @@ with st.expander('Tabla de pagos'):
     st.dataframe(dfpay.style.apply(row_style, axis=1))
     #st.dataframe(dfpay)
 #pronda.items
-dfpron
+#dfpron
 try:
     pendientes = [registro for registro in pronda.items if registro['paycon']=='PENDIENTE']
 except:
