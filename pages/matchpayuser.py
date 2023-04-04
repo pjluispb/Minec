@@ -131,11 +131,11 @@ for index, row in dfpendientes.iterrows():
             #regPaycXupd = {'confirmado':'SI', 'nroFuente':str(row['key'])}
             #clavePayc = refbuscada.items[0]['key']
             clavePayc = list(drefbus['REFERENCIA'].items())[0][1]
-            st.write('clavePayc : ',clavePayc, '-->update-->', regPaycXupd, '\n'*2)
+            st.write('clavePayc : ',clavePayc, '-->update-->', regPaycXupd)
             # print('Actualiza en Payconf registro clave', clavePayc, 'con los datos :', regPaycXupd)
-            #-------paycdb.update(regPaycXupd, clavePayc)
+            paycdb.update(regPaycXupd, clavePayc)
             # print('Actualiza en ProndaminFull registro clave', clavePronda, 'con los datos :', regProndXupd)
-            #-------prondadb.update(regProndXupd, clavePronda)
+            prondadb.update(regProndXupd, clavePronda)
         else:
              st.write(row['referenciaPago'], 'NO encontrado')
 
