@@ -84,6 +84,8 @@ dfpay = dfpay.drop('key', axis=1)
 dfpay.style.apply(row_style, axis=1)  #Coloriza las filas de tabla de pagos
 with st.expander('Tabla de pagos'):
     dfpay = dfpay.reindex(columns=['REFERENCIA', 'DESCRIPCION', 'FECHA', 'INGRESO', 'montoApagar', 'Diferencia', 'confirmado', 'nroFuente'])
+    #df = df.sort_values(by='age', ascending=False)
+    dfpay = dfpay.sort_values(by='confirmado', ascending=False)
     st.dataframe(dfpay.style.apply(row_style, axis=1))
     #st.dataframe(dfpay)
 #pronda.items
