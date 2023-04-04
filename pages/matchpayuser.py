@@ -12,17 +12,17 @@ from google.oauth2 import service_account
 imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
 
-def enu(s):
+def eanumber(string_var):
     x=[]
-    for i in s.split():
+    for i in string_var.split():
         i = i.replace(',','.')
-        print('i =',i)
+        i = i.replace(':',' ')
+        #print('i =',i)
         try:
-            # Convert word to float and add in list
             x.append(float(i))
         except ValueError :
             pass
-    return(x[0])
+    return(x)
 
 def inicializaConexiones():
     deta = Deta(st.secrets.deta_key)
@@ -96,27 +96,46 @@ dfpendientes = pd.DataFrame(pendientes)
 # print('\n'*3, dfpendientes)
 # print('\n'*5, 'Haciendo Match')
 for index, row in dfpendientes.iterrows():
-        st.write('referenciaPago = ',row['referenciaPago'][-4:])
-        refbuscada = paycdb.fetch({"key":str(row['referenciaPago'][-4:])})
-        if len(refbuscada.items) > 0:
-                diferencia = float(row['MontoApagar'])-enu(row['montoPago'])
-                if abs(diferencia)<=int(margenp): vpayc = 'SI'
-                else:
-                     if float(row['montoPago']) > enu(row['MontoApagar']): vpayc = 'SI++'
-                     else: vpayc = 'PENDIENTE x DIFERENCIA'
-                regProndXupd = {'paycon':vpayc,  'Diferencia':str(diferencia)}
-                regPaycXupd ={'confirmado':vpayc, 'nroFuente':str(row['key']), 'Diferencia':str(diferencia), 'montoApagar':str(row['MontoApagar'])}
-                st.write('diferencia = ',diferencia, 'vpayc = ',vpayc)
-
-                # print('Diferencia = ',diferencia)
-                
-                clavePronda = str(row['key'])
-                #regPaycXupd = {'confirmado':'SI', 'nroFuente':str(row['key'])}
-                clavePayc = refbuscada.items[0]['key']
-                # print('Actualiza en Payconf registro clave', clavePayc, 'con los datos :', regPaycXupd)
-                paycdb.update(regPaycXupd, clavePayc)
-                # print('Actualiza en ProndaminFull registro clave', clavePronda, 'con los datos :', regProndXupd)
-                prondadb.update(regProndXupd, clavePronda)
+        #st.write('referenciaPago = ',row['referenciaPago'][-4:])
+        #refbuscada = paycdb.fetch({"key":str(row['referenciaPago'][-4:])})
+        #if len(refbuscada.items) > 0:
+        #        diferencia = float(row['MontoApagar'])-enu(row['montoPago'])
+        #        if abs(diferencia)<=int(margenp): vpayc = 'SI'
+        #        else:
+        #             if float(row['montoPago']) > enu(row['MontoApagar']): vpayc = 'SI++'
+        #             else: vpayc = 'PENDIENTE x DIFERENCIA'
+        #        regProndXupd = {'paycon':vpayc,  'Diferencia':str(diferencia)}
+        #        regPaycXupd ={'confirmado':vpayc, 'nroFuente':str(row['key']), 'Diferencia':str(diferencia), 'montoApagar':str(row['MontoApagar'])}
+        #        st.write('diferencia = ',diferencia, 'vpayc = ',vpayc)
+        #        # print('Diferencia = ',diferencia)
+        #        clavePronda = str(row['key'])
+        #        #regPaycXupd = {'confirmado':'SI', 'nroFuente':str(row['key'])}
+        #        clavePayc = refbuscada.items[0]['key']
+        refbuscada = dfpay[dfpay['REFERENCIA'].str.endswith(row['referenciaPago'][-4:])]
+        if len(refbuscada) > 0:
+            drefbus = refbuscada.to_dict('dict')
+            st.write('REFERENCIA : ',list(drefbus['REFERENCIA'].items())[0][1], ' - INGRESO : ',list(drefbus['INGRESO'].items())[0][1], ' - FECHA : ',list(drefbus['FECHA'].items())[0][1], ' - DESCRIPCION : ', list(drefbus['DESCRIPCION'].items())[0][1])
+            st.write('ReferenciaPago: ',row['referenciaPago'], row['Apellidos'], row['Nombres'],' Categoria: ', row['Categoria'],' ID : ', row['key'],' MontoPago : ', row['montoPago'], 'MontoApagar : ',row['MontoApagar'], row['paycon'])
+            st.write('eanumber : ', eanumber(row['montoPago']))
+            diferencia = round(float(row['MontoApagar'])-abs(eanumber(row['montoPago'])[0]))
+            st.write('Diferencia = ', diferencia)
+            if abs(diferencia)<=int(margenp): vpayc = 'SI'
+            else:
+                if abs(eanumber(row['montoPago'])[0]) > float(row['MontoApagar']): vpayc = 'SI++'
+                else: vpayc = 'PENDIENTE x DIFERENCIA'
+            regProndXupd = {'paycon':vpayc,  'Diferencia':str(diferencia)}
+            regPaycXupd ={'confirmado':vpayc, 'nroFuente':str(row['key']), 'Diferencia':str(diferencia), 'montoApagar':str(row['MontoApagar'])}
+            print('diferencia = ',diferencia, 'vpayc = ',vpayc)
+            clavePronda = str(row['key'])
+            st.write('ClavePronda: ', clavePronda, ' --> update--> ', regProndXupd)
+            #regPaycXupd = {'confirmado':'SI', 'nroFuente':str(row['key'])}
+            #clavePayc = refbuscada.items[0]['key']
+            clavePayc = list(drefbus['REFERENCIA'].items())[0][1]
+            st.write('clavePayc : ',clavePayc, '-->update-->', regPaycXupd, '\n'*2)
+            # print('Actualiza en Payconf registro clave', clavePayc, 'con los datos :', regPaycXupd)
+            #-------paycdb.update(regPaycXupd, clavePayc)
+            # print('Actualiza en ProndaminFull registro clave', clavePronda, 'con los datos :', regProndXupd)
+            #-------prondadb.update(regProndXupd, clavePronda)
         else:
              st.write(row['referenciaPago'], 'NO encontrado')
 
