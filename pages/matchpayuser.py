@@ -114,8 +114,8 @@ for index, row in dfpendientes.iterrows():
         refbuscada = dfpay[dfpay['REFERENCIA'].str.endswith(row['referenciaPago'][-4:])]
         if len(refbuscada) > 0:
             drefbus = refbuscada.to_dict('dict')
-            st.write('REFERENCIA : ',list(drefbus['REFERENCIA'].items())[0][1], ' - INGRESO : ',list(drefbus['INGRESO'].items())[0][1], ' - FECHA : ',list(drefbus['FECHA'].items())[0][1], ' - DESCRIPCION : ', list(drefbus['DESCRIPCION'].items())[0][1])
-            st.write('ReferenciaPago: ',row['referenciaPago'], row['Apellidos'], row['Nombres'],' Categoria: ', row['Categoria'],' ID : ', row['key'],' MontoPago : ', row['montoPago'], 'MontoApagar : ',row['MontoApagar'], row['paycon'])
+            #st.write('REFERENCIA : ',list(drefbus['REFERENCIA'].items())[0][1], ' - INGRESO : ',list(drefbus['INGRESO'].items())[0][1], ' - FECHA : ',list(drefbus['FECHA'].items())[0][1], ' - DESCRIPCION : ', list(drefbus['DESCRIPCION'].items())[0][1])
+            #st.write('ReferenciaPago: ',row['referenciaPago'], row['Apellidos'], row['Nombres'],' Categoria: ', row['Categoria'],' ID : ', row['key'],' MontoPago : ', row['montoPago'], 'MontoApagar : ',row['MontoApagar'], row['paycon'])
             #st.write('eanumber : ', eanumber(row['montoPago'])[0])
             diferencia = round(float(row['MontoApagar'])-abs(eanumber(row['montoPago'])[0]))
             #st.write('Diferencia = ', diferencia)
@@ -127,17 +127,17 @@ for index, row in dfpendientes.iterrows():
             regPaycXupd ={'confirmado':vpayc, 'nroFuente':str(row['key']), 'Diferencia':str(diferencia), 'montoApagar':str(row['MontoApagar'])}
             print('diferencia = ',diferencia, 'vpayc = ',vpayc)
             clavePronda = str(row['key'])
-            st.write('ClavePronda: ', clavePronda, ' --> update--> ', regProndXupd)
+            #st.write('ClavePronda: ', clavePronda, ' --> update--> ', regProndXupd)
             #regPaycXupd = {'confirmado':'SI', 'nroFuente':str(row['key'])}
             #clavePayc = refbuscada.items[0]['key']
             clavePayc = list(drefbus['REFERENCIA'].items())[0][1]
-            st.write('clavePayc : ',clavePayc, '-->update-->', regPaycXupd)
+            #st.write('clavePayc : ',clavePayc, '-->update-->', regPaycXupd)
             # print('Actualiza en Payconf registro clave', clavePayc, 'con los datos :', regPaycXupd)
             paycdb.update(regPaycXupd, clavePayc)
             # print('Actualiza en ProndaminFull registro clave', clavePronda, 'con los datos :', regProndXupd)
             prondadb.update(regProndXupd, clavePronda)
-        else:
-             st.write(row['referenciaPago'], 'NO encontrado')
+        #else:
+        #     st.write(row['referenciaPago'], 'NO encontrado')
 
 with st.expander('Tabla de usuarios'):
     dfpron = dfpron.reindex(columns=['Distrito', 'Categoria', 'key', 'Nombres', 'Apellidos', 'paycon', 'Modalidad', 'MontoApagar', 'montoPago', 'Diferencia', 'fuenteOrigen', 'referenciaPago', 'fechaPago', 'correo', 'Telefono'])
