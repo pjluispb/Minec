@@ -141,6 +141,8 @@ for index, row in dfpendientes.iterrows():
 
 with st.expander('Tabla de usuarios'):
     dfpron = dfpron.reindex(columns=['Distrito', 'Categoria', 'key', 'Nombres', 'Apellidos', 'paycon', 'Modalidad', 'MontoApagar', 'montoPago', 'Diferencia', 'fuenteOrigen', 'referenciaPago', 'fechaPago', 'correo', 'Telefono'])
+    #df = df.sort_values(by='age', ascending=False)
+    dfpron = dfpron.sort_values(by='paycon', ascending=False)
     st.dataframe(dfpron.style.apply(row_style2, axis=1))
     #st.dataframe(dfpron)
 
