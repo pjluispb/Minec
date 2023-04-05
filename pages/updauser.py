@@ -159,13 +159,13 @@ if b1:
                         st.write('**Correo electronico**')
                         st.info(registro['Email'], icon="✉️")
                         st.write('**Modalidad**')
-                        st.info(registro['Modalidad'], icon="🖥️")
+                        st.success(registro['Modalidad'], icon="🖥️")
                         st.write('**Origen (Transferencia, Pago Movil)**')
                         st.info(registro['fuenteOrigen'], icon="💳")
                         st.write('**Nro de referencia del pago (últimos 4 dígitos)**')
-                        st.info(registro['referenciaPago'], icon="🔢")
+                        st.success(registro['referenciaPago'], icon="🔢")
                 with col2:
-                        st.info(registro['key'], icon="ℹ️")
+                        st.success(registro['key'], icon="ℹ️")
                         st.write('**Apellidos**')
                         st.info(registro['Apellidos'], icon="ℹ️")
                         st.write('**Teléfono**')
@@ -173,7 +173,7 @@ if b1:
                         st.write('**Monto A Cancelar**')
                         st.info(registro['MontoApagar'], icon="💴")
                         st.write('**Fecha de Pago**')
-                        st.info(registro['fechaPago'], icon="📆")
+                        st.success(registro['fechaPago'], icon="📆")
                         st.write('**Monto de Pago**')
                         st.info(registro['montoPago'], icon="💴")
                         
@@ -181,10 +181,11 @@ if b1:
                 # #df.to_csv("Prondanmin23.csv")
                 # df.to_csv(urlcsv)
                 
-        recomenzar = st.button('Re-iniciar')
+        recomenzar = st.button('Finalizar')
         if recomenzar:
-                cedula = ''
-                switch_page('reinicia02')
+                #cedula = ''
+                st.session_state['cedula'] = cedula
+                switch_page('finalupdauser')
         
 st.write('----------------')
 # regresar = st.button('Volver a Principal')
