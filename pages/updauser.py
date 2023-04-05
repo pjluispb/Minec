@@ -92,7 +92,7 @@ if b0:
                                         ph1.write('➡️➡️➡️➡️ _Monto a cancelar por modalidad_   ↔️:red[ **'+ modalidad+ ': Bs '+montoAcancelar+'** ]')
                                 pagoConfirmado = ph1.text_input('Pago Confirmado', value = first['paycon'], disabled = True)
                                 #fuenteOrigen = ph1.text_input('Origen del pago(Transferencia, Pago Movil)', value = first['fuenteOrigen'], disabled = valpay)
-                                fuenteOrigen = ph1.radio('Origen del pago(Transferencia o Pago Movil) : ', options=['','Pago Movil', 'Transferencia'],horizontal=True)
+                                fuenteOrigen = ph1.radio('Origen del pago(Transferencia o Pago Movil) : OJO debe seleccionar una opción para continuar e ingresar o editar los datos de pago', options=['','Pago Movil', 'Transferencia'],horizontal=True)
                                 if fuenteOrigen != '': sherr = True
                                 fechaPago = ph1.text_input('Fecha de pago _(dd/mm/aa)_', value = first['fechaPago'], disabled = not(sherr))
                                 if not(is_valid_date(fechaPago)):
