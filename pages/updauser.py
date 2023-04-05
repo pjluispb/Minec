@@ -73,6 +73,7 @@ if b0:
                         if first!=None:
                                 cedmin = cedula
                                 ch_data = True
+                                sherr = False
                                 ph1.text('Edite los siguientes campos')
                                 nombres = ph1.text_input('Nombres :name_badge:', value = first['Nombres'])
                                 apellidos = ph1.text_input('Apellidos:',value = first['Apellidos'])
@@ -92,18 +93,21 @@ if b0:
                                 pagoConfirmado = ph1.text_input('Pago Confirmado', value = first['paycon'], disabled = True)
                                 #fuenteOrigen = ph1.text_input('Origen del pago(Transferencia, Pago Movil)', value = first['fuenteOrigen'], disabled = valpay)
                                 fuenteOrigen = ph1.radio('Origen del pago(Transferencia o Pago Movil) : ', options=['','Pago Movil', 'Transferencia'],horizontal=True)
-                                
-                                fechaPago = ph1.text_input('Fecha de pago _(dd/mm/aa)_', value = first['fechaPago'], disabled = valpay)
+                                if fuenteOrigen != '': sherr = True
+                                fechaPago = ph1.text_input('Fecha de pago _(dd/mm/aa)_', value = first['fechaPago'], disabled = not(sherr))
                                 if not(is_valid_date(fechaPago)):
-                                       st.error('Error: El formato de la fecha debe ser dd/mm/aa y el año 23')
+                                       if sherr:
+                                            st.error('Error: El formato de la fecha debe ser dd/mm/aa y el año 23')
 
-                                referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 4 dígitos)', value = first['referenciaPago'], disabled = valpay)
+                                referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 4 dígitos)', value = first['referenciaPago'], disabled = not(sherr))
                                 if not(len(referenciaPago)==4 and referenciaPago.isalnum()):
-                                        st.error('Error: El Nro de referencia del pago debe contener solo 4 dígitos')
+                                        if sherr:
+                                            st.error('Error: El Nro de referencia del pago debe contener solo 4 dígitos')
                                 
-                                montoPago = ph1.text_input('Monto pagado', value = first['montoPago'], disabled = valpay)
+                                montoPago = ph1.text_input('Monto pagado', value = first['montoPago'], disabled = not(sherr))
                                 if not(is_number(montoPago)):
-                                        st.error('Error: el monto pago debe ser un número válido. Sólo dígitos y punto(.) decimal')
+                                        if sherr:
+                                            st.error('Error: el monto pago debe ser un número válido. Sólo dígitos y punto(.) decimal')
 
                         else:
                                 st.warning('El número de documento de identidad:id: ingresado **NO** aparece en nuestra base de datos.:file_cabinet: :arrow_right: intente de nuevo, y si luego de varios intentos no aparece su información, entonces tendrá que ponerse de acuerdo con el representante de MINEC de su distrito')
