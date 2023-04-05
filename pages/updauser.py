@@ -3,6 +3,25 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 from deta import Deta
 from PIL import Image
+import re
+from datetime import datetime
+
+
+def is_number(string):
+    regex = r"^\d+(\.\d{1,2})?$"
+    return bool(re.match(regex, string))
+
+def is_valid_date(string):
+    try:
+        date = datetime.strptime(string, "%d/%m/%y")
+        return date.day in range(1, 32) and date.month in range(1, 13) and date.year == 2023
+    except ValueError:
+        return False
+    
+def is_valid_email(string):
+    regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    return bool(re.match(regex, string))
+
 
 imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
@@ -71,10 +90,21 @@ if b0:
                                         valpay = False
                                         ph1.write('➡️➡️➡️➡️ _Monto a cancelar por modalidad_   ↔️:red[ **'+ modalidad+ ': Bs '+montoAcancelar+'** ]')
                                 pagoConfirmado = ph1.text_input('Pago Confirmado', value = first['paycon'], disabled = True)
-                                fuenteOrigen = ph1.text_input('Origen del pago(Transferencia, Pago Movil)', value = first['fuenteOrigen'], disabled = valpay)
+                                #fuenteOrigen = ph1.text_input('Origen del pago(Transferencia, Pago Movil)', value = first['fuenteOrigen'], disabled = valpay)
+                                fuenteOrigen = ph1.radio('Origen del pago(Transferencia o Pago Movil) : ', options=['','Pago Movil', 'Transferencia'],horizontal=True)
+                                
                                 fechaPago = ph1.text_input('Fecha de pago _(dd/mm/aa)_', value = first['fechaPago'], disabled = valpay)
+                                if not(is_valid_date(fechaPago)):
+                                       st.error('Error: El formato de la fecha debe ser dd/mm/aa y el año 23')
+
                                 referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 4 dígitos)', value = first['referenciaPago'], disabled = valpay)
+                                if not(len(referenciaPago)==4 and referenciaPago.isalnum()):
+                                        st.error('Error: El Nro de referencia del pago debe contener solo 4 dígitos')
+                                
                                 montoPago = ph1.text_input('Monto pagado', value = first['montoPago'], disabled = valpay)
+                                if not(is_number(montoPago)):
+                                        st.error('Error: el monto pago debe ser un número válido. Sólo dígitos y punto(.) decimal')
+
                         else:
                                 st.warning('El número de documento de identidad:id: ingresado **NO** aparece en nuestra base de datos.:file_cabinet: :arrow_right: intente de nuevo, y si luego de varios intentos no aparece su información, entonces tendrá que ponerse de acuerdo con el representante de MINEC de su distrito')
 if ch_data:
