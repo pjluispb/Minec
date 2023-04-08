@@ -116,7 +116,7 @@ for index, row in dfpendientes.iterrows():
         refbuscada = dfpay[dfpay['REFERENCIA'].str.endswith(row['referenciaPago'][-4:])]
         if len(refbuscada) > 0:
             drefbus = refbuscada.to_dict('dict')
-            #st.write('REFERENCIA : ',list(drefbus['REFERENCIA'].items())[0][1], ' - INGRESO : ',list(drefbus['INGRESO'].items())[0][1], ' - FECHA : ',list(drefbus['FECHA'].items())[0][1], ' - DESCRIPCION : ', list(drefbus['DESCRIPCION'].items())[0][1])
+            st.write('REFERENCIA : ',list(drefbus['REFERENCIA'].items())[0][1], ' - INGRESO : ',list(drefbus['INGRESO'].items())[0][1], ' - FECHA : ',list(drefbus['FECHA'].items())[0][1], ' - DESCRIPCION : ', list(drefbus['DESCRIPCION'].items())[0][1])
             st.write('ReferenciaPago: ',row['referenciaPago'], row['Apellidos'], row['Nombres'],' Categoria: ', row['Categoria'],' ID : ', row['key'],' MontoPago : ', row['montoPago'], 'MontoApagar : ',row['MontoApagar'], row['paycon'])
             st.write('eanumber : ', eanumber(row['montoPago'])[0])
             diferencia = round(float(row['MontoApagar'])-abs(eanumber(str(row['montoPago']))[0]))
