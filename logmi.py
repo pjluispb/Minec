@@ -30,7 +30,7 @@ with st.form('Login Minec'):
         buser = [x for x in res.items if x['user']==usuario]
         if len(buser)>0:
             bclave = buser[0]['clave']
-            bclave
+            #bclave
             if str(bclave)==str(clave):
                 logina = buser[0]
                 st.session_state['logina'] = logina
