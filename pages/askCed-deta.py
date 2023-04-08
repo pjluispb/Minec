@@ -4,6 +4,8 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 from deta import Deta
 from PIL import Image
+import re
+from datetime import datetime
 
 imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
