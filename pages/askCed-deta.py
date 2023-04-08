@@ -88,7 +88,7 @@ if b0:
                                 elif first['paycon']=='NO':
                                         ph1.write('OBSERVACION:👁️‍🗨️ :red[****Aún NO ha realizado ningún pago.****] 👁️‍🗨️Realize y registre su pago ahora')
                                 else: ph1.write('OBSERVACION:✅ :green[****Pago confirmado. Inscripción realizada****] ✅Gracias por su diligencia')
-                                modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
+                                #modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
                                 modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
                                 if modalidad=='Virtual': 
                                        montoAcancelar = montoApagar.items[0]['MontoAPagarVirtual']
