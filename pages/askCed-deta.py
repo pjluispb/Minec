@@ -15,6 +15,22 @@ montoApagar = montopay.fetch()
 
 logina = st.session_state['logina']
 #logina
+
+def is_number(string):
+    regex = r"^\d+(\.\d{1,2})?$"
+    return bool(re.match(regex, string))
+
+def is_valid_date(string):
+    try:
+        date = datetime.strptime(string, "%d/%m/%y")
+        return date.day in range(1, 32) and date.month in range(1, 13) and date.year == 2023
+    except ValueError:
+        return False
+    
+def is_valid_email(string):
+    regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    return bool(re.match(regex, string))
+
 st.image(imagen1)
 st.image(imagen2)
 
@@ -56,6 +72,8 @@ if b0:
                         if first!=None:
                                 cedmin = cedula
                                 ch_data = True
+                                sherr = False
+                                errores = False
                                 ph1.text('Edite los siguientes campos')
                                 nombres = ph1.text_input('Nombres :name_badge:', value = first['Nombres'])
                                 apellidos = ph1.text_input('Apellidos:',value = first['Apellidos'])
@@ -71,24 +89,55 @@ if b0:
                                         ph1.write('OBSERVACION:👁️‍🗨️ :red[****Aún NO ha realizado ningún pago.****] 👁️‍🗨️Realize y registre su pago ahora')
                                 else: ph1.write('OBSERVACION:✅ :green[****Pago confirmado. Inscripción realizada****] ✅Gracias por su diligencia')
                                 modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
-                                if modalidad=='Virtual': montoAcancelar = montoApagar.items[0]['MontoAPagarVirtual']
+                                modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
+                                if modalidad=='Virtual': 
+                                       montoAcancelar = montoApagar.items[0]['MontoAPagarVirtual']
+                                       if not(is_valid_email(correo)):
+                                              st.error('Error: La modalidad Virtual implica tener un correo válido, con un formato similar a: xxxxx@yyyy.zzz')
+                                              errores = True
+                                #if modalidad=='Virtual': montoAcancelar = montoApagar.items[0]['MontoAPagarVirtual']
                                 else: montoAcancelar = montoApagar.items[0]['MontoAPagarPresencial']
-                                if first['paycon'] == 'SI': 
-                                        valpay = True
-                                        pagoConfirmado = 'SI'
+                                        
+                                if first['paycon'] == 'SI': valpay = True
                                 else: 
                                         valpay = False
-                                        pagoConfirmado = 'PENDIENTE'
-                                        ph1.write('➡️➡️➡️ _Monto a cancelar por modalidad_   ↔️:red[ **'+ modalidad+ ': Bs '+montoAcancelar+'** ]')
-                                fuenteOrigen = ph1.text_input('Origen del pago(Banco-Paypal-Zelle-Efectivo-Otros)', value = first['fuenteOrigen'], disabled = valpay)
-                                fechaPago = ph1.text_input('Fecha de pago', value = first['fechaPago'], disabled = valpay)
-                                referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 6 dígitos)', value = first['referenciaPago'], disabled = valpay)
-                                montoPago = ph1.text_input('Monto pagado', value = first['montoPago'], disabled = valpay)
+                                        ph1.write('➡️➡️➡️➡️ _Monto a cancelar por modalidad_   ↔️:red[ **'+ modalidad+ ': Bs '+montoAcancelar+'** ]')
+                                pagoConfirmado = ph1.text_input('Pago Confirmado', value = first['paycon'], disabled = True)
+                                #if first['paycon'] == 'SI': 
+                                #        valpay = True
+                                #        pagoConfirmado = 'SI'
+                                #else: 
+                                #        valpay = False
+                                #        pagoConfirmado = 'PENDIENTE'
+                                #        ph1.write('➡️➡️➡️ _Monto a cancelar por modalidad_   ↔️:red[ **'+ modalidad+ ': Bs '+montoAcancelar+'** ]')
+                                #fuenteOrigen = ph1.text_input('Origen del pago(Banco-Paypal-Zelle-Efectivo-Otros)', value = first['fuenteOrigen'], disabled = valpay)
+                                fuenteOrigen = ph1.radio('Origen del pago(Transferencia o Pago Movil) : ', options=['','Pago Movil', 'Transferencia'],horizontal=True)
+                                if fuenteOrigen != '': sherr = True
+                                        
+                                fechaPago = ph1.text_input('Fecha de pago (dd/mm/aa)', value = first['fechaPago'], disabled = not(sherr))
+                                if not(is_valid_date(fechaPago)):
+                                       if sherr:
+                                                st.error('Error: El formato de la fecha debe ser dd/mm/aa y el año 23')
+                                                errores = True
+
+                                
+                                referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 4 dígitos)', value = first['referenciaPago'], disabled = not(sherr))
+                                if not(len(referenciaPago)==4 and referenciaPago.isalnum()):
+                                        if sherr:
+                                                st.error('Error: El Nro de referencia del pago debe contener solo 4 dígitos')
+                                                errores = True
+                                                
+                                montoPago = ph1.text_input('Monto pagado', value = first['montoPago'], disabled = not(sherr))
+                                if not(is_number(montoPago)):
+                                        if sherr:
+                                                st.error('Error: el monto pago debe ser un número válido. Sólo dígitos y punto(.) decimal')
+                                                errores = True
+                                                
                         else:
                                 st.warning('El número de documento de identidad:id: ingresado NO aparece en nuestra base de datos.:file_cabinet: :arrow_right: intente de nuevo')
 if ch_data:
         confirmar = st.radio('¿Confirma la edición de la data y su registro en el próximo curso de MINEC?',('SI','NO'), index=1, horizontal=True)
-        if confirmar=='SI':
+        if confirmar=='SI' and not(errores):
                 edo='confirmar'
                 #st.info('Actualizando Datos:  '+edo)
                 hide01()
