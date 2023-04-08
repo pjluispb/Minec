@@ -41,7 +41,8 @@ with st.form('Login Minec'):
                     switch_page('BienvenidaU')
                 
             else:
-                st.write('Clave Invalida', clave, type(clave), bclave, type(bclave))
+                st.write('Clave Inválida')
+                #st.write('Clave Invalida', clave, type(clave), bclave, type(bclave))
         else:
             st.write('**** Datos Invalidos **** ')
             st.write(' ⚠️  Intenta nuevamente  ')
