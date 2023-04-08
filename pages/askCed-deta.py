@@ -150,11 +150,20 @@ if ch_data:
 if b1:
         with st.expander("ESTOS SON LOS DATOS ACTUALIZADOS", expanded=True):
                 b0=False
+                if first['paycon']=='SI':  newpaycon = 'SI'
+                elif first['paycon']=='NO': 
+                        if (fuenteOrigen != '-') or (referenciaPago != '-') or (montoPago != '-') or (fechaPago != '-'): 
+                                newpaycon = 'PENDIENTE'
+                        else:   
+                                newpaycon = 'NO'
+                                fuenteOrigen, referenciaPago = '-', '-'
+                                montoPago, fechaPago = '-', '-'
+                else : newpaycon = 'PENDIENTE'
                 updates = {'Nombres': nombres,
                            'Apellidos': apellidos,
                            'Email': correo,
                            'Telefono': telefono,
-                           'paycon': pagoConfirmado,
+                           'paycon': newpaycon,
                            'fuenteOrigen': fuenteOrigen,
                            'fechaPago': fechaPago,
                            'referenciaPago': referenciaPago,
