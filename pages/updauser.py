@@ -182,9 +182,9 @@ if b0:
                                         ph1.info('Fecha de Pago: :green[**'+first['fechaPago']+'**]', icon="📆")
                                            
                                 elif first['paycon']=='SI++':
-                                        st.write('paycon = '+first['paycon']+'...procedimiento para pagos fraccionarios')
-                                        st.write('muestra los datos personales y los de pago...solo puede editar los personales(N-A-T-C) y agregar si el pago fraccionario(el exceso), se usará para abonar el pago de otro usuario(debe dar la cedula de dicho usuario) o se ofrendará a la Minec')
-                                        ph1.success(':blue[**ATENCION:**] Su :blue[**pago**] ha sido **_registrado_** y :blue[**confirmado**. Si desea, a continuación puede cambiar alguna información sobre sus datos personales y además puede decirnos en que se usará el monto excedente, el cuál puede ser ofrendado al ministerio de MINEC ó usado como abono para el curso PRONDANMIN de otro ministro')
+                                        #st.write('paycon = '+first['paycon']+'...procedimiento para pagos fraccionarios')
+                                        #st.write('muestra los datos personales y los de pago...solo puede editar los personales(N-A-T-C) y agregar si el pago fraccionario(el exceso), se usará para abonar el pago de otro usuario(debe dar la cedula de dicho usuario) o se ofrendará a la Minec')
+                                        ph1.success(':blue[**ATENCION:**] Su :blue[**pago**] ha sido **_registrado_** y :blue[**confirmado**]. Si desea, a continuación puede cambiar alguna información sobre sus datos personales y además puede decirnos en que se usará el monto excedente, el cuál puede ser ofrendado al ministerio de MINEC ó usado como abono para el curso PRONDANMIN de otro ministro')
                                         ch_data = True
                                         sherr = False
                                         errores = False
@@ -205,6 +205,8 @@ if b0:
                                         ph1.info('Modo de pago: :green[**' +first['fuenteOrigen']+'**]', icon="💳")
                                         ph1.success('Monto de Pago: :orange[**'+first['montoPago']+'**]', icon="💴")
                                         ph1.info('Fecha de Pago: :green[**'+first['fechaPago']+'**]', icon="📆")
+                                        ph1.write('---')
+                                        ph1.success('Su pago supera el monto del curso registrado. Debe contactar al departamento de Finanzas de MINEC para ver que se hará  con la cantidad excedente')
                                         
                                 elif first['paycon']=="PENDIENTE x DIFERENCIA":
                                         #st.write('paycon = '+first['paycon']+'...proc para cuando es necesario pagos complementarios')
