@@ -376,9 +376,12 @@ if b1:
                 #updates, cedula
 
                 encprof.update(updates, cedula)
-                if pagoAdicional:
-                        try: pagocomp.put(regPagoCom)
-                        except: st.write('No hay registro de pagos complementarios')
+                try:
+                    if pagoAdicional:
+                            try: pagocomp.put(regPagoCom)
+                            except: st.write('No hay registro de pagos complementarios')
+                except:
+                    st.write('****')
                 registro = encprof.get(cedula)
                 st.write('Sus datos han sido actualizados y a continuacion se muestra como quedaron guardados')
                 col1, col2 = st.columns(2)
