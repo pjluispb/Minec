@@ -131,7 +131,7 @@ if b0:
                                                 SiEditarPago = ph1.radio('Desea editar el pago?', options=['SI', 'NO'], horizontal=True, index=1)
                                                 if SiEditarPago=='SI': permitirEditarPago=True
                                         if permitirEditarPago:
-                                                first
+                                                ph1.write(first)
                                                 if first['fuenteOrigen']=='Pago Movil': indexrFO=0
                                                 else: indexrFO=1
                                                 fuenteOrigen = ph1.radio('Origen del pago(Transferencia o Pago Movil) : ', options=['Pago Movil', 'Transferencia'],horizontal=True, index=indexrFO)
