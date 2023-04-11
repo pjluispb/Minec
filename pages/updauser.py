@@ -185,7 +185,27 @@ if b0:
                                         st.write('paycon = '+first['paycon']+'...procedimiento para pagos fraccionarios')
                                         st.write('muestra los datos personales y los de pago...solo puede editar los personales(N-A-T-C) y agregar si el pago fraccionario(el exceso), se usará para abonar el pago de otro usuario(debe dar la cedula de dicho usuario) o se ofrendará a la Minec')
                                         ph1.success(':blue[**ATENCION:**] Su :blue[**pago**] ha sido **_registrado_** y :blue[**confirmado**. Si desea, a continuación puede cambiar alguna información sobre sus datos personales y además puede decirnos en que se usará el monto excedente, el cuál puede ser ofrendado al ministerio de MINEC ó usado como abono para el curso PRONDANMIN de otro ministro')
-                                
+                                        ch_data = True
+                                        sherr = False
+                                        errores = False
+                                        ph1.text('Edite/Actualice los siguientes campos')
+                                        nombres = ph1.text_input('Nombres :name_badge:', value = first['Nombres'])
+                                        apellidos = ph1.text_input('Apellidos:',value = first['Apellidos'])
+                                        correo = ph1.text_input('Correo Electrónico: 	:email:',value = first['Email'])
+                                        if not(is_valid_email(correo)):
+                                               st.error('Error: El formato del correo debe ser similar a: xxxxx@yyyy.zzz')
+                                               errores = True
+                                        telefono = ph1.text_input('Teléfono: :telephone_receiver:',value = first['Telefono'])
+                                        distrito = ph1.text_input('Distrito:',value = first['Distrito'], disabled=True)
+                                        catasp = ph1.text_input('Categoría que aspira: :male-judge:',value = first['Categoria'], disabled=True)
+                                        ph1.write('---')
+                                        ph1.write('Datos acerca del pago')
+                                        ph1.info('Modalidad : :green[**' + first['Modalidad'] + '**]')
+                                        ph1.success('Nro de referencia del pago : :orange[**' + first['referenciaPago']+'**]', icon="🔢")
+                                        ph1.info('Modo de pago: :green[**' +first['fuenteOrigen']+'**]', icon="💳")
+                                        ph1.success('Monto de Pago: :orange[**'+first['montoPago']+'**]', icon="💴")
+                                        ph1.info('Fecha de Pago: :green[**'+first['fechaPago']+'**]', icon="📆")
+                                        
                                 elif first['paycon']=="PENDIENTE x DIFERENCIA":
                                         #st.write('paycon = '+first['paycon']+'...proc para cuando es necesario pagos complementarios')
                                         #st.write('muestra los datos personales y los de pago...puede editar los personales(N-A-T-C) y agregar nuevos datos de pago complementario')
