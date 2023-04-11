@@ -15,7 +15,7 @@ montoApagar = montopay.fetch()
 #st.write(montoApagar.items[0]['MontoAPagarVirtual'], montoApagar.items[0]['MontoAPagarPresencial'])
 try:
     logina = st.session_state['logina']
-    logina
+    logina['tipou']
 except:
     switch_page('logmi')
 st.image(imagen1)
