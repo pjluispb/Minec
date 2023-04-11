@@ -285,7 +285,7 @@ if b0:
                                 st.warning('El número de documento de identidad:id: ingresado **NO** aparece en nuestra base de datos.:file_cabinet: :arrow_right: intente de nuevo, y si luego de varios intentos no aparece su información, entonces tendrá que ponerse de acuerdo con el representante de MINEC de su distrito')
 if ch_data:
         confirmar = st.radio('¿Confirma la edición de la data y su registro en el próximo curso de MINEC?',('SI','NO'), index=1, horizontal=True)
-        if confirmar=='SI':
+        if confirmar=='SI' and not(errores):
                 edo='confirmar'
                 #st.info('Actualizando Datos:  '+edo)
                 hide01()
