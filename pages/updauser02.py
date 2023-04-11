@@ -22,7 +22,7 @@ st.write('Solo para aquellos ministros cuya cédulas no aparecen en nuestra base
 dbcontent = encprof.fetch(limit=5000).items
 df = pd.DataFrame(dbcontent)
 dttox = ['Sur', 'Andi', 'Metro', 'Yara']
-seldttox = st.selectbox('Selecciona el Distrito al que perteneces',options=['Sur Oriente', 'Yaracuy'])
+seldttox = st.selectbox('Selecciona el Distrito al que perteneces',options=['Sur Oriente', 'Yaracuy', 'Zulia'])
 dttosel = seldttox[:3]
 #dttosel
 dfdsel = df.loc[(df['key'].str.startswith(dttosel))]
