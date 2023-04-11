@@ -16,6 +16,7 @@ montoApagar = montopay.fetch()
 try:
     logina = st.session_state['logina']
     logina['tipou']
+    if logina['tipou']!='AdminRegistro': switch_page('logmi')
 except:
     switch_page('logmi')
 st.image(imagen1)
