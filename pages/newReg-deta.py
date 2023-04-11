@@ -15,7 +15,7 @@ montoApagar = montopay.fetch()
 #st.write(montoApagar.items[0]['MontoAPagarVirtual'], montoApagar.items[0]['MontoAPagarPresencial'])
 
 logina = st.session_state['logina']
-#logina
+logina
 st.image(imagen1)
 st.image(imagen2)
 st.title('Nuevo Registro')
