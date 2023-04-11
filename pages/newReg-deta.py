@@ -13,9 +13,11 @@ encprof = deta.Base('ProndanminFull01')
 montopay = deta.Base('MontoAPagar')
 montoApagar = montopay.fetch()
 #st.write(montoApagar.items[0]['MontoAPagarVirtual'], montoApagar.items[0]['MontoAPagarPresencial'])
-
-logina = st.session_state['logina']
-logina
+try:
+    logina = st.session_state['logina']
+    logina
+except:
+    switch_page('logmi')
 st.image(imagen1)
 st.image(imagen2)
 st.title('Nuevo Registro')
