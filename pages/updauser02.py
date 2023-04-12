@@ -46,7 +46,7 @@ apellidos = datper.text_input('Apellidos:',value = regsel[0][1])
 correo = datper.text_input('Correo Electrónico: 	:email:',value='-')
 telefono = datper.text_input('Teléfono: :telephone_receiver:',value='-')
 distrito = datper.text_input('Distrito:',value = seldttox, disabled=True)
-catasp = datper.text_input('Categoría: :male-judge:',value = regsel[0][2], disabled=True)
+catasp = datper.text_input('Categoría Ministerial: :male-judge:',value = regsel[0][2], disabled=True)
 confirmar = datper.form_submit_button('Actualizar Datos Personales')
 
 
