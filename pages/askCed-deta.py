@@ -82,7 +82,7 @@ if b0:
                                 correo = ph1.text_input('Correo Electrónico: 	:email:',value = first['Email'])
                                 telefono = ph1.text_input('Teléfono: :telephone_receiver:',value = first['Telefono'])
                                 distrito = ph1.text_input('Distrito:',value = first['Distrito'], disabled=True)
-                                catasp = ph1.text_input('Categoría que aspira: :male-judge:',value = first['Categoria'], disabled=True)
+                                catasp = ph1.text_input('Categoría Ministerial: :male-judge:',value = first['Categoria'], disabled=True)
                                 ph1.write('---')
                                 ph1.subheader('Datos acerca del pago')
                                 if first['paycon']=='PENDIENTE':
