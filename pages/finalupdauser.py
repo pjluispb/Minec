@@ -32,7 +32,7 @@ rcatmi = list(dfcedula['Categoria'].items())[0][1]
 
 coordimdb = deta.Base('coordi-minec')
 coordina = coordimdb.fetch({'Distrito':rdtto})
-coordina.items
+#coordina.items
 coordinadorDtto = coordina.items[0]['Nombre']
 coordinadorTelf = coordina.items[0]['telefono']
 
