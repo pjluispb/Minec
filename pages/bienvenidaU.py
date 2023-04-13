@@ -21,7 +21,7 @@ else:
     st.write('Eres  _Representante de MINEC_ para el distrito ****' + logina['Distrito'] + '**** y por eso puedes ver la data del distrito y actualizar algunos registros')
 st.subheader('Que deseas hacer?')
 if logina['tipou']=='AdminRegistro':
-    acciones = ['⏩', 'VER DATA', 'ACTUALIZAR', 'REGISTRAR', 'ACTUALIZAR SIN CÉDULA' ]
+    acciones = ['⏩', 'VER DATA', 'ACTUALIZAR', 'REGISTRAR', 'ACTUALIZAR SIN CÉDULA', 'Nueva vista de DATA' ]
 else:
     acciones = ['⏩', 'VER DATA', 'ACTUALIZAR' ]
 st.write('Seleccionar Acción')
@@ -37,6 +37,8 @@ if selector=='REGISTRAR':
     switch_page('newReg-deta')
 if selector=='VER DATA':
     switch_page('verdata')
+if selector=='Nueva vista de DATA':
+    switch_page('verdata04')
   
 
 regresar = st.button('Volver')
