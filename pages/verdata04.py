@@ -6,7 +6,7 @@ from streamlit_extras.switch_page_button import switch_page
 from deta import Deta
 from streamlit_echarts import st_echarts
 import numpy as np
-import plotly.express as px
+#import plotly.express as px
 from PIL import Image
 
 def vcountsTOdf(dataf, colname):
