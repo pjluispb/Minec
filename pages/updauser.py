@@ -151,13 +151,20 @@ if b0:
                                                 if sherr:
                                                         st.error('Error: El formato de la fecha debe ser dd/mm/aa y el año 23')
                                                         errores = True
+                                        try:
+                                            first['referenciaPago']
+                                        except:
+                                            first['referenciaPago']='-'
 
                                         referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 4 dígitos)', value = first['referenciaPago'], disabled = not(sherr))
                                         if not(len(referenciaPago)==4 and referenciaPago.isalnum()):
                                                 if sherr:
                                                         st.error('Error: El Nro de referencia del pago debe contener solo 4 dígitos')
                                                         errores = True
-                                        
+                                        try:
+                                            first['montoPago']
+                                        except:
+                                            first['montoPago']='-'
                                         montoPago = ph1.text_input('Monto pagado', value = first['montoPago'], disabled = not(sherr))
                                         if not(is_number(montoPago)):
                                                 if sherr:
