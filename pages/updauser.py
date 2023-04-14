@@ -141,6 +141,10 @@ if b0:
                                                 fuenteOrigen = ph1.radio('Origen del pago(Transferencia o Pago Movil) : ', options=['Pago Movil', 'Transferencia'],horizontal=True, index=indexrFO)
                                                 if fuenteOrigen != '': sherr = True
                                         else: fuenteOrigen = ph1.text_input(label='Origen del pago', value=first['fuenteOrigen'],disabled=True)
+                                        try:
+                                            first['fechaPago']
+                                        except:
+                                            first['fechaPago']='-'
 
                                         fechaPago = ph1.text_input('Fecha de pago (dd/mm/aa)', value = first['fechaPago'], disabled = not(sherr))
                                         if not(is_valid_date(fechaPago)):
