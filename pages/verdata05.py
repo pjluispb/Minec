@@ -167,7 +167,7 @@ deta = Deta(st.secrets["deta_key"])
 prondadb = deta.Base('ProndanminFull01')
 pronda = prondadb.fetch(limit=5000)
 df = pd.DataFrame(pronda.items)
-df = df.iloc[:, [4,2,6,18,15]]
+df = df.iloc[:, [1,4,2,6,18,15]]
 
 
 Distritos = ['Andino', 'Centro', 'Centro Llanos', 'Falcón', 'Lara', 'Llanos Occidentales', 'Metropolitano', 'Nor Oriente', 'Sur Oriente', 'Yaracuy', 'Zulia']
