@@ -99,6 +99,10 @@ if b0:
                                         # if not(is_valid_email(correo)):
                                         #        st.error('Error: El formato del correo debe ser similar a: xxxxx@yyyy.zzz')
                                         #        errores = True
+                                        try:
+                                            first['Telefono']
+                                        except:
+                                            first['Telefono']='-' 
                                         telefono = ph1.text_input('Teléfono: :telephone_receiver:',value = first['Telefono'])
                                         distrito = ph1.text_input('Distrito:',value = first['Distrito'], disabled=True)
                                         catasp = ph1.text_input('Categoría Ministerial: :male-judge:',value = first['Categoria'], disabled=True)
