@@ -91,6 +91,10 @@ if b0:
 
                                         nombres = ph1.text_input('Nombres :name_badge:', value = first['Nombres'])
                                         apellidos = ph1.text_input('Apellidos:',value = first['Apellidos'])
+                                        try:
+                                            first['Email']
+                                        except:
+                                            first['Email']='-'    
                                         correo = ph1.text_input('Correo Electrónico: 	:email:',value = first['Email'])
                                         # if not(is_valid_email(correo)):
                                         #        st.error('Error: El formato del correo debe ser similar a: xxxxx@yyyy.zzz')
