@@ -2,7 +2,7 @@
 
 import time
 import requests
-
+from deta import Deta
 import streamlit as st
 from streamlit_lottie import st_lottie
 from streamlit_lottie import st_lottie_spinner
@@ -14,6 +14,12 @@ def load_lottieurl(url: str):
     if r.status_code != 200:
         return None
     return r.json()
+
+deta = Deta(st.secrets["deta_key"])
+minecAccess = deta.Base('minec-accesos')
+minecAccessDb = minecAccess.fetch()
+clavesper = minecAccessDb.items
+clavesper2 = [x['clave'] for x in  clavesper]
 
 imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
@@ -42,8 +48,11 @@ col1, col2 = st.columns(2)
 with cola:
     st.image(imagen1)
     st.image(imagen2)
-with colc:
+with colb:
     st_lottie(lottie_notifi)
+with colc:
+    st.write('***')
+    
 with col2:
     
     st.subheader('Sentimos informar que actualmente el :orange[sistema de registro] para los cursos de actualización ministerial :blue[PRONDAMIN2023], está en :red[mantenimiento] y ha sido :red[deshabilitado] :orange[temporalmente]. Por favor intente ingresar más tarde.')
@@ -56,3 +65,8 @@ with col1:
 #          time.sleep(20)
 #     st.balloons()
 st.write('---')
+claveUminec = st.text_input(label='', max_chars=10)
+if claveUminec in clavesper2:
+    st.session_state['logEsp']=claveUminec
+    st.balloons()
+    switch_page("updauserNEW")
