@@ -55,8 +55,8 @@ with colc:
     st.write('***')
     
 with col2:
-    
-    st.subheader('Sentimos informar que actualmente el :orange[sistema de registro] para los cursos de actualización ministerial :blue[PRONDAMIN2023], está en :red[mantenimiento] y ha sido :red[deshabilitado] :orange[temporalmente]. Por favor intente ingresar más tarde.')
+    st.subheader('Sentimos informar que actualmente el :orange[sistema de registro] para los cursos de actualización ministerial :blue[PRONDAMIN2023], está :red[deshabilitado] :orange[temporalmente] para el acceso general de los ministros. :orange[Si desea] _inscribirse, modificar sus datos personales o registrar un pago_, :green[deberá contactar al representante de] :blue[**MINEC**] de su distrito.')
+    #st.subheader('Sentimos informar que actualmente el :orange[sistema de registro] para los cursos de actualización ministerial :blue[PRONDAMIN2023], está en :red[mantenimiento] y ha sido :red[deshabilitado] :orange[temporalmente]. Por favor intente ingresar más tarde.')
 with col1:
     st_lottie(lottie_mantenimiento)
 
