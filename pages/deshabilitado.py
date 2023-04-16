@@ -69,4 +69,4 @@ claveUminec = st.text_input(label='', max_chars=10)
 if claveUminec in clavesper2:
     st.session_state['logEsp']=claveUminec
     st.balloons()
-    switch_page("updauserNEW")
+    switch_page("updauser")
