@@ -36,6 +36,8 @@ pagocomp = deta.Base('PagoRegistrados')
 st.image(imagen1)
 st.image(imagen2)
 
+switch_page("deshabilitado")
+
 edo = 'inicial'
 def hide01():
         b0=False
