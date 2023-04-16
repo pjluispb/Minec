@@ -6,6 +6,7 @@ from deta import Deta
 import streamlit as st
 from streamlit_lottie import st_lottie
 from streamlit_lottie import st_lottie_spinner
+from streamlit_extras.switch_page_button import switch_page
 from PIL import Image
 
 
