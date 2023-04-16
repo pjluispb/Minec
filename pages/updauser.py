@@ -36,7 +36,10 @@ pagocomp = deta.Base('PagoRegistrados')
 st.image(imagen1)
 st.image(imagen2)
 
-switch_page("deshabilitado")
+try:
+        logEsp = st.session_state['logEsp']
+except:
+        switch_page("deshabilitado")
 
 edo = 'inicial'
 def hide01():
