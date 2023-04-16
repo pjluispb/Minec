@@ -50,9 +50,9 @@ with col2:
 with col1:
     st_lottie(lottie_mantenimiento)
 
-if st.button("Download"):
+# if st.button("Download"):
     #with st_lottie_spinner(lottie_download, key="download"):
-    with st_lottie_spinner(lottie_processing07, key="processing07"):
-        time.sleep(20)
-    st.balloons()
-
+#     with st_lottie_spinner(lottie_processing07, key="processing07"):
+#          time.sleep(20)
+#     st.balloons()
+st.write('---')
