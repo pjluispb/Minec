@@ -3,3 +3,4 @@ streamlit-extras==0.2.6
 deta==1.1.0
 pygsheets==2.0.6
 streamlit-echarts>=0.4.0
+streamlit-lottie==0.0.3
