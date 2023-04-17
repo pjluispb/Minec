@@ -71,5 +71,7 @@ with st.form(key='SelTabla'):
 
         # Write data to worksheet
         #---wks.set_dataframe(df, start='A1')
-        
+regresar = st.button('Volver')
+if regresar:
+    switch_page('logmi')      
 
