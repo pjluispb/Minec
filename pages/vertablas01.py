@@ -68,8 +68,8 @@ with st.form(key='SelTabla'):
         listado = 'li'+dtto
         #listado
         #modtab
-        sh = gc.open('listados')
-        wks = sh.worksheet_by_title('Listado1')
+        sh = gc.open(listado)
+        wks = sh.worksheet_by_title(modtab)
         # Write data to worksheet
         wks.set_dataframe(df, start='A1')
         
