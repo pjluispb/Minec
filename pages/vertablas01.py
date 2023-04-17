@@ -47,7 +47,7 @@ with st.form(key='SelTabla'):
     if tipoMod == 'Ninguna (NO inscritos aún)': modtab='NOins'
     else: modtab=tipoMod
     nameTable = 'listado'+dtto+modtab+'.csv'
-    nameTable
+    #nameTable
     
     enviar = st.form_submit_button('Generar')
     if enviar:
@@ -65,12 +65,14 @@ with st.form(key='SelTabla'):
         #df.to_csv(path)
 
         # Open spreadsheet and select worksheet
+        listado = 'li'+dtto
+        #listado
+        #modtab
         sh = gc.open('listados')
         wks = sh.worksheet_by_title('Listado1')
-
-
         # Write data to worksheet
-        #---wks.set_dataframe(df, start='A1')
+        wks.set_dataframe(df, start='A1')
+        
 regresar = st.button('Volver')
 if regresar:
     switch_page('logmi')      
