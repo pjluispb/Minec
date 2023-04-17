@@ -60,9 +60,9 @@ with st.form(key='SelTabla'):
             df = df.loc[(df['Distrito'] == dtto) & (df['Modalidad'] == tipoMod)]
         st.subheader('Tabla de datos correspondiente al distrito: :blue['+dtto+'] en la modalidad: :orange['+modtab+']')
         st.dataframe(df)
-        path = Path.cwd()/nameTable
-        st.write('La tabla generada se guardó como: ', path)
-        df.to_csv(path)
+        #path = Path.cwd()/nameTable
+        #st.write('La tabla generada se guardó como: ', path)
+        #df.to_csv(path)
 
         # Open spreadsheet and select worksheet
         sh = gc.open('listados')
