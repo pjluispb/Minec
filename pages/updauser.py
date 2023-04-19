@@ -14,7 +14,7 @@ def is_number(string):
 def is_valid_date(string):
     try:
         date = datetime.strptime(string, "%d/%m/%y")
-        return date.day in range(1, 32) and date.month in range(1, 13) and date.year == 2023
+        return date.day in range(1, 15) and date.month in range(1, 4) and date.year == 2023
     except ValueError:
         return False
     
@@ -173,6 +173,7 @@ if b0:
                                         if not(len(referenciaPago)==4 and referenciaPago.isalnum()):
                                                 if sherr:
                                                         st.error('Error: El Nro de referencia del pago debe contener solo 4 dígitos')
+                                                        st.warning('Si ingresas una fecha de pago mayor al 15 de Abril, debes contactar al representante de MINEC, porque los pagos eran hasta el 15/04/23')
                                                         errores = True
                                         try:
                                             first['montoPago']
