@@ -14,7 +14,7 @@ def is_number(string):
 def is_valid_date(string):
     try:
         date = datetime.strptime(string, "%d/%m/%y")
-        return date.day in range(1, 15) and date.month in range(1, 4) and date.year == 2023
+        return date.day in range(1, 30) and date.month in range(1, 5) and date.year == 2023
     except ValueError:
         return False
     
