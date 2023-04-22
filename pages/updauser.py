@@ -163,6 +163,7 @@ if b0:
                                         if not(is_valid_date(fechaPago)):
                                                 if sherr:
                                                         st.error('Error: El formato de la fecha debe ser dd/mm/aa y el año 23')
+                                                        st.warning('Si ingresas una fecha de pago mayor al 15 de Abril, debes contactar al representante de MINEC, porque los pagos eran hasta el 15/04/23')
                                                         errores = True
                                         try:
                                             first['referenciaPago']
@@ -173,7 +174,6 @@ if b0:
                                         if not(len(referenciaPago)==4 and referenciaPago.isalnum()):
                                                 if sherr:
                                                         st.error('Error: El Nro de referencia del pago debe contener solo 4 dígitos')
-                                                        st.warning('Si ingresas una fecha de pago mayor al 15 de Abril, debes contactar al representante de MINEC, porque los pagos eran hasta el 15/04/23')
                                                         errores = True
                                         try:
                                             first['montoPago']
