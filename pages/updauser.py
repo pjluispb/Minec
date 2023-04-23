@@ -352,6 +352,7 @@ if b1:
         with st.expander("ESTOS SON LOS DATOS ACTUALIZADOS", expanded=True):
                 
                 b0=False
+                fecyhora = str(datetime.now())[:-10]
                 #st.write(first['paycon'])
                 if first['paycon']=='SI':  
                         newpaycon = 'SI'
@@ -371,7 +372,8 @@ if b1:
                         updates = {'Nombres': nombres,
                            'Apellidos': apellidos,
                            'Email': correo,
-                           'Telefono': telefono}
+                           'Telefono': telefono,
+                           'fecyhora': str(fecyhora) }
                         if pagoAdicional:
                                 regPagoCom = {'ID': cedula,
                                       'key': cedula+'-'+referenciaPagoComp,
@@ -380,7 +382,8 @@ if b1:
                                       'referencia':referenciaPagoComp,
                                       'monto':montoPagoComp,
                                       'fecha':fechaPagoComp,
-                                      'confirmacion':'PENDIENTE'}
+                                      'confirmacion':'PENDIENTE',
+                                      'fecyhora': str(fecyhora)}
                         #pagocomp.put(regPagoCom)
                         #st.write('updates = ',updates)
                         # registro de pago complementario
@@ -397,7 +400,8 @@ if b1:
                                         'fuenteOrigen': fuenteOrigen,
                                         'fechaPago': fechaPago,
                                         'referenciaPago': referenciaPago,
-                                        'montoPago': montoPago}
+                                        'montoPago': montoPago,
+                                        'fecyhora': str(fecyhora)}
                                 
                         else:   
                                 newpaycon = 'NO'
@@ -413,7 +417,8 @@ if b1:
                                         'fuenteOrigen': fuenteOrigen,
                                         'fechaPago': fechaPago,
                                         'referenciaPago': referenciaPago,
-                                        'MontoPago': montoPago}
+                                        'MontoPago': montoPago,
+                                        'fecyhora': str(fecyhora)}
                 elif first['paycon']=='PENDIENTE' : 
                         newpaycon = 'PENDIENTE'
                         updates = {'Nombres': nombres,
@@ -424,7 +429,8 @@ if b1:
                                 'fuenteOrigen': fuenteOrigen,
                                 'fechaPago': fechaPago,
                                 'referenciaPago': referenciaPago,
-                                'montoPago': montoPago}
+                                'montoPago': montoPago,
+                                'fecyhora': str(fecyhora)}
                 #updates, cedula
 
                 encprof.update(updates, cedula)
