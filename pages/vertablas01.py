@@ -55,7 +55,7 @@ with st.form(key='SelTabla'):
         pronda = prondadb.fetch(limit=5000)
         df = pd.DataFrame(pronda.items)
         if tipoMod=='Ninguna (NO inscritos aún)': tipoMod='-'
-        df = df.loc[:, ['Distrito', 'Modalidad', 'Categoria',  'key', 'Nombres', 'Apellidos','Email','correo','paycon','montoPago','referenciaPago']]
+        df = df.loc[:, ['Distrito', 'Modalidad', 'Categoria',  'key', 'Nombres', 'Apellidos','Email','correo','paycon','montoPago','referenciaPago','fecyhora']]
         if dtto != 'Todos':
             df = df.loc[(df['Distrito'] == dtto) & (df['Modalidad'] == tipoMod)]
         st.subheader('Tabla de datos correspondiente al distrito: :blue['+dtto+'] en la modalidad: :orange['+modtab+']')
