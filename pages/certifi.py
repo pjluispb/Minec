@@ -72,7 +72,7 @@ with st.expander(label="Prondamin2023 - Cierre", expanded=True):
                 ph1.success('👇👇**Aquí está tu certificado**.👇👇')
                 buscaCerti = [imags for imags in dicPminec['names'] if cedula in imags]
                 CertiEncontrado = buscaCerti[0]
-                #st.write(CertiEncontrado)
+                st.write(CertiEncontrado)
                 imag = drive.get(CertiEncontrado)
                 ph1.image(imag.read())
 
