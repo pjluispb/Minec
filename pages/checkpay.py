@@ -70,7 +70,7 @@ dfqfinal = getdfqfinal(gc)
 
 lendfs = [len(df[1]) for df in dfqfinal]
 regins, contador = [], 1
-@st.cache_data
+#@st.cache_data
 for t in dfqfinal:
     st.write('✔️','Revisando gsheet',str(contador),'✔️')
     contador+=1
