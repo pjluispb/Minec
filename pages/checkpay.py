@@ -67,6 +67,7 @@ df = pd.DataFrame(payc.items)
 
 dfqfinal = getdfqfinal(gc)
 
+@st.cache_data
 lendfs = [len(df[1]) for df in dfqfinal]
 regins, contador = [], 1
 for t in dfqfinal:
