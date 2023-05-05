@@ -9,6 +9,8 @@ from PIL import Image
 import time
 from google.oauth2 import service_account
 
+@st.cache_data
+
 imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
 
