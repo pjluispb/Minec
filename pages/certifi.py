@@ -62,7 +62,7 @@ with st.expander(label="Prondamin2023 - Cierre", expanded=True):
             
     else:
         if buscado!=None:
-            st.write(buscado)
+            #st.write(buscado)
             cedmin = cedula
             status = buscado['STATUS']
             if status=='APROBADO':
