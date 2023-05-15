@@ -63,9 +63,8 @@ with st.expander(label="Prondamin2023 - Cierre", expanded=True):
     else:
         if buscado!=None:
             cedmin = cedula
-            status = buscado['Status']
-            if status=='Aprobado':
-                #ph1.write(buscado)
+            status = buscado['STATUS']
+            if status=='APROBADO':
                 ph1.success('**$\\large✨Felicitaciones✨\\newline$**  ministro :blue[** ' +buscado['NOMBRES']+' '+buscado['APELLIDOS'] + ' ** ], $\\newline$ por haber realizado y aprobado el curso de : $\\newline$ :orange[**'+buscado['CURSOREALIZADO']+' - PRONDAMIN2023**].$\\newline$ ')
                 #ph1.markdown('La temática del curso estudiado abarcó: $\\newline$ 🔹:violet[**Predicación Poderosa**], preparado por el Rvdo Wilmer Pérez $\\newline$ 🔹:violet[**Una  Nueva  Visión Y  Un  Nuevo  Comienzo**], preparado por el Rvdo Gregorio Acosta $\\newline$ 🔹:violet[**Llenura del Espíritu Santo en la Predicación**], preparado por el Rvdo Gregorio Acosta')
                 ph1.success('👇👇**Aquí está tu certificado**.👇👇')
