@@ -76,12 +76,12 @@ with st.expander(label="Prondamin2023 - Cierre", expanded=True):
                 ph1.image(imag.read())
                 
                 ph1.success('Para :red[**guardar**] la imagen de tu certificado en tu :orange[**computadora**], _puedes hacer clic con el **botón derecho** sobre la imagen, y elegir en el **menú contextual** la opción de :blue[**imprimir**] ó :blue[**guardar imagen como**]_. $\\newline$ En caso de que lo hagas desde una :orange[**tablet o un celular**], manten la imagen _presionada_ y te aparecerá un **_menú contextual_** con las opciones de :blue[**agregar a fotos**] (_esto es se descargará en la carpeta :red[**Fotos**] de tu dispositivo_), :blue[**compartir**] (_que te permitirá enviarlo a un correo electrónico, Whatsapp, Telegram, Drive, etc_) y la de :blue[**copiar**] (_lo copia en memoria para pegarlo en otra aplicación tal como Powerpoint, Notas, etc_)')
-                correo = ph1.text_input(label='Enviar certificado a: ',placeholder=buscado['EMAIL'],)
-                btnemail = ph1.button('enviar al correo')
-                if btnemail:
-                    file = drive.get(nnyced)
-                    with open(nnyced, "wb") as f:
-                        f.write(file.read())
+                #correo = ph1.text_input(label='Enviar certificado a: ',placeholder=buscado['EMAIL'],)
+                #btnemail = ph1.button('enviar al correo')
+                #if btnemail:
+                #    file = drive.get(nnyced)
+                #    with open(nnyced, "wb") as f:
+                #        f.write(file.read())
                     #send_email(certificado=nnyced, fromE='pjluis1010@gmail.com', toE=correo, clave='xlevnvykrkckojgs',asunto='Certificado Prondamin2023')
             else:
                 ph1.warning(' _Estimado ministr@_: ↔️:red[ **'+buscado['NOMBRES']+' '+buscado['APELLIDOS']+ '** ], sentimos que no haya podido aprobar el curso de ' + buscado['CURSOREALIZADO']+'. ➡️➡️➡️Tendrá que volver a realizarlo el próximo año')
