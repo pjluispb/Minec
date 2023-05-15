@@ -19,6 +19,13 @@ pronda = deta.Base('ProndanminFull01')
 drive = deta.Drive("minec")
 dicPminec =  drive.list()
 
+st.set_page_config(
+    page_title="Minec Reg App",
+    page_icon="🧊",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
+
 def send_email(certificado, fromE, toE, clave, asunto):
     msg = MIMEMultipart()
 
@@ -44,7 +51,7 @@ def send_email(certificado, fromE, toE, clave, asunto):
 
 with st.expander(label="Prondamin2023 - Cierre", expanded=True):
     ph1=st.container() 
-    ph1.subheader(' Cierre de participación en cursos PRONDAMIN2023')
+    ph1.subheader(' Módulo de Cierre de cursos PRONDAMIN2023 ')
     # ch_data = False
     cedula = ph1.text_input('Introduzca su número de cédula y/o documento de identidad :id:',key='iced',placeholder='ingrese su ID')
     try:
@@ -52,48 +59,32 @@ with st.expander(label="Prondamin2023 - Cierre", expanded=True):
     except:
         if cedula=='':
             ph1.write('Ingrese numero de cedula o :id:')
-        # else:
-        #     ph1.write('cedula no existe')
-        #     ph1.warning('''El número de cedula/id:id: NO aparece en nuestra base de datos.:file_cabinet:
-                    # :arrow_right: Tendrá que registrarse nuevamente y al momento de hacerlo deberá introducir un requerimiento de revisión de data.
-                    # Entonces procederemos a procesar su requerimiento y en un plazo:date: razonable le
-                    # daremos una respuesta adecuada. Gracias por su paciencia, pero le recordamos
-                    # que fue usted mismo quien inscribió sus datos en nuestra base de datos	:card_index:''')
             
     else:
-        #ph1.write(first)
         if buscado!=None:
             cedmin = cedula
             status = buscado['Status']
             if status=='Aprobado':
                 #ph1.write(buscado)
-                ph1.success('**$\\large✨Felicitaciones✨$**  ministro :blue[**_' +buscado['Nombres']+' '+buscado['Apellidos'] + '_** ], $\\newline$ por haber realizado y aprobado el curso de : $\\newline$ :orange[**Ministro Ordenado - PRONDAMIN2023**].$\\newline$ Tu calificación final fue de :blue[20]')
-                ph1.markdown('La temática del curso estudiado abarcó: $\\newline$ 🔹:violet[**Predicación Poderosa**], preparado por el Rvdo Wilmer Pérez $\\newline$ 🔹:violet[**Una  Nueva  Visión Y  Un  Nuevo  Comienzo**], preparado por el Rvdo Gregorio Acosta $\\newline$ 🔹:violet[**Llenura del Espíritu Santo en la Predicación**], preparado por el Rvdo Gregorio Acosta')
+                ph1.success('**$\\large✨Felicitaciones✨\\newline$**  ministro :blue[** ' +buscado['NOMBRES']+' '+buscado['APELLIDOS'] + ' ** ], $\\newline$ por haber realizado y aprobado el curso de : $\\newline$ :orange[**'+buscado['CURSOREALIZADO']+' - PRONDAMIN2023**].$\\newline$ ')
+                #ph1.markdown('La temática del curso estudiado abarcó: $\\newline$ 🔹:violet[**Predicación Poderosa**], preparado por el Rvdo Wilmer Pérez $\\newline$ 🔹:violet[**Una  Nueva  Visión Y  Un  Nuevo  Comienzo**], preparado por el Rvdo Gregorio Acosta $\\newline$ 🔹:violet[**Llenura del Espíritu Santo en la Predicación**], preparado por el Rvdo Gregorio Acosta')
                 ph1.success('👇👇**Aquí está tu certificado**.👇👇')
-                buscaCerti = [imags for imags in dicPminec['names'] if cedula in imags]
-                CertiEncontrado = buscaCerti[0]
-                st.write(CertiEncontrado)
-                imag = drive.get(CertiEncontrado)
+                nombre = buscado['NOMBRES'] + ' ' + buscado['APELLIDOS']
+                nnombre = nombre.replace(' ','')
+                nnyced = nnombre+str(buscado['CEDULA'])+'.png'
+                imag = drive.get(nnyced)
                 ph1.image(imag.read())
-
-                btnd = ph1.button('descargar certificado')
-                if btnd:
-                    file = drive.get(CertiEncontrado)
-                    with open(CertiEncontrado, "wb") as f:
-                        f.write(file.read())
-                    ph1.write('Certificado descargado!')
-                correo = ph1.text_input(label='Enviar certificado a: ',placeholder=buscado['Email'])
+                
+                ph1.warning('Si lo deseas, puedes :red[**guardar**] la imagen de tu certificado en tu computadora, _haciendo clic con el **botón derecho** sobre la imagen, y elegir en el **menú contextual** la opción de :blue[imprimir] ó :blue[guardar imagen como]_')
+                correo = ph1.text_input(label='Enviar certificado a: ',placeholder=buscado['EMAIL'],)
                 btnemail = ph1.button('enviar al correo')
                 if btnemail:
-                    file = drive.get(CertiEncontrado)
-                    with open(CertiEncontrado, "wb") as f:
+                    file = drive.get(nnyced)
+                    with open(nnyced, "wb") as f:
                         f.write(file.read())
-                    send_email(certificado=CertiEncontrado, fromE='pjluis1010@gmail.com', toE=correo, clave='xlevnvykrkckojgs',asunto='Certificado Prondamin2023')
-
-
+                    #send_email(certificado=nnyced, fromE='pjluis1010@gmail.com', toE=correo, clave='xlevnvykrkckojgs',asunto='Certificado Prondamin2023')
             else:
-                #ph1.write(buscado)
-                ph1.warning('Lo sentimos, todavía no apareces aprobado')
+                ph1.warning(' _Estimado ministr@_: ↔️:red[ **'+buscado['NOMBRES']+' '+buscado['APELLIDOS']+ '** ], sentimos que no haya podido aprobar el curso de ' + buscado['CURSOREALIZADO']+'. ➡️➡️➡️Tendrá que volver a realizarlo el próximo año')
         else:
             #ph1.write('cedula no existe')
             ph1.error('''Lo sentimos, pero el número de cédula/:id: ingresado, **NO** aparece en nuestra base de datos:file_cabinet:. :arrow_right: :arrow_right: Por favor, intente nuevamente o comuníquese con el representante de **MINEC** en su distrito.
