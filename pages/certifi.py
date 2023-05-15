@@ -15,7 +15,7 @@ imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
 
 deta = Deta(st.secrets["deta_key"])
-pronda = deta.Base('ProndanminFull01')
+pronda = deta.Base('PRONDAMIN2023-Final')
 drive = deta.Drive("minec")
 dicPminec =  drive.list()
 
