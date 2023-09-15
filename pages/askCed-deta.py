@@ -15,6 +15,8 @@ encprof = deta.Base('ProndanminFull01')
 montopay = deta.Base('MontoAPagar')
 montoApagar = montopay.fetch()
 
+montoApagar
+
 logina = st.session_state['logina']
 #logina
 
