@@ -93,12 +93,12 @@ if b0:
                                 #modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
                                 modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
                                 if modalidad=='Virtual': 
-                                       montoAcancelar = montoApagar.items[0]['MontoAPagarVirtual']
+                                       montoAcancelar = montoApagar.items[1]['MontoAPagarVirtual']
                                        if not(is_valid_email(correo)):
                                               st.error('Error: La modalidad Virtual implica tener un correo válido, con un formato similar a: xxxxx@yyyy.zzz')
                                               errores = True
                                 #if modalidad=='Virtual': montoAcancelar = montoApagar.items[0]['MontoAPagarVirtual']
-                                else: montoAcancelar = montoApagar.items[0]['MontoAPagarPresencial']
+                                else: montoAcancelar = montoApagar.items[1]['MontoAPagarPresencial']
                                         
                                 if first['paycon'] == 'SI': valpay = True
                                 else: 
