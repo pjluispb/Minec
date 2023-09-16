@@ -29,10 +29,10 @@ def getdfqfinal(gc):
     gsheetsTit = gc.spreadsheet_titles()       #obtiene la lista de todas las gsheets
     files = [x for x in gsheetsTit if x.startswith('M2s')]    #obtiene la lista de los gsheets que comienzan con M2
     #print(files)
-    st.write('files = ',files)
+    #st.write('files = ',files)
     shs = [gc.open(titu) for titu in files]     #obtengo cada gsheet de files
     #print(shs)
-    'shs = ',shs
+    #'shs = ',shs
     wks = [sh[0] for sh in shs]                 #obtiene la hoja 1 de cada gsheet de files
     #print(wks)
     'wks = ',wks
