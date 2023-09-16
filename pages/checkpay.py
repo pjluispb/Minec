@@ -35,7 +35,7 @@ def getdfqfinal(gc):
     #'shs = ',shs
     wks = [sh[0] for sh in shs]                 #obtiene la hoja 1 de cada gsheet de files
     #print(wks)
-    'wks = ',wks
+    # 'wks = ',wks
     dfs = [wk.get_as_df(include_tailing_empty=False) for wk in wks]   #convierte cada hoja(wks) en un df
     dfqs = [df.query("INGRESO != ''") for df in dfs]             #obtiene de cada df solo aquellos que tienen INGRESO y los pone en dfq
     dfqss = [dfq.convert_dtypes(infer_objects=False, convert_string=True) for dfq in dfqs]    #convierte los tipos de los dfq en cadenas(str)
