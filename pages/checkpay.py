@@ -27,7 +27,7 @@ def inicializaConexiones():
 #@st.cache_data
 def getdfqfinal(gc):     
     gsheetsTit = gc.spreadsheet_titles()       #obtiene la lista de todas las gsheets
-    files = [x for x in gsheetsTit if x.startswith('M2')]    #obtiene la lista de los gsheets que comienzan con M2
+    files = [x for x in gsheetsTit if x.startswith('M2s')]    #obtiene la lista de los gsheets que comienzan con M2
     #print(files)
     st.write('files = ',files)
     shs = [gc.open(titu) for titu in files]     #obtengo cada gsheet de files
