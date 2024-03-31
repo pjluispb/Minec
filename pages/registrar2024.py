@@ -16,7 +16,7 @@ res=accesos.fetch()
 #st.write(len(res.items))
 permisados=[]
 for t in range(len(res.items)):
-    if res.items[t]['tipou']=='AdminRegistro':
+    if res.items[t]['tipou']=='Registrador Especial':
         permisados.append((res.items[t]['user'], res.items[t]['clave']))
 
 #permisados
@@ -49,7 +49,7 @@ with st.form('nuevo registro'):
         st.write('Distrito : ****' + distrito + '****')
     else:
         distrito = st.selectbox('Distrito:',['Andino','Centro','Centro Llanos', 'Falcón','Lara', 'Llanos','Llanos Occidentales','Metropolitano','Nor Oriente','Sur Oriente','Yaracuy','Zulia'])
-    categoria = st.selectbox(label= 'Categoría :', options=['Ministro Distrital','Ministro Cristiano','Ministro Licenciado','Ministro Ordenado'])
+    categoria = st.selectbox(label= 'Categoría :', options=['Ministro Cristiano','Ministro Licenciado','Ministro Ordenado'])
     # modalidad = st.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
     # if modalidad=='Virtual': montoAcancelar = montoApagar.items[0]['MontoAPagarVirtual']
     # else: montoAcancelar = montoApagar.items[0]['MontoAPagarPresencial']
@@ -135,3 +135,4 @@ with st.form('nuevo registro'):
 regresar = st.button('Volver')
 if regresar:
     switch_page('logmi')
+st.page_link("pages/home2024.py", label="Inicio", icon="🏠")

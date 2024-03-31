@@ -1,8 +1,11 @@
 import pandas as pd
 import streamlit as st
+import datetime as datetime
 from streamlit_extras.switch_page_button import switch_page
 from deta import Deta
 from PIL import Image
+
+
 
 imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
@@ -14,6 +17,7 @@ montoApagar = montopay.fetch()
 
 logina = st.session_state['logina']
 #logina
+#logina['tipou']
 st.image(imagen1)
 st.image(imagen2)
 
@@ -61,28 +65,61 @@ if b0:
                                 correo = ph1.text_input('Correo Electrónico: 	:email:',value = first['Email'])
                                 telefono = ph1.text_input('Teléfono: :telephone_receiver:',value = first['Telefono'])
                                 distrito = ph1.text_input('Distrito:',value = first['Distrito'], disabled=True)
-                                catasp = ph1.text_input('Categoría: :male-judge:',value = first['Categoria'], disabled=True)
+                                if logina['tipou']=='Registrador':
+                                        catasp = ph1.text_input('Categoría: :male-judge:',value = first['Categoria'], disabled=True)
+                                if logina['tipou']=='Registrador Especial':
+                                        vacat = first['Categoria']
+                                        catpos = ['Ministro Ordenado', 'Ministro Licenciado', 'Ministro Cristiano', 'Ministro Distrital', 'Ministro Otro']
+                                        ph1.write('El grado ministerial registrado actualmente en nuestra base de datos es de: :blue[ **'+vacat+'** ]')
+                                        #ph1.write('Si desea cambiarlo/actualizarlo seleccione uno de los siguientes')
+                                        catasp2 = ph1.selectbox('Si desea cambiarlo/actualizarlo seleccione uno de los siguientes. :orange[**OJO: debes estar muy seguro del cambio**] ', ['Ministro Ordenado', 'Ministro Licenciado', 'Ministro Cristiano'], index=None,  placeholder='Seleccione una opción')
+                                        catasp = catasp2 if catasp2 != None else vacat
                                 ph1.write('---')
                                 ph1.subheader('Datos acerca del pago')
                                 if first['paycon']=='PENDIENTE':
-                                        ph1.write('OBSERVACION: ⚠️:orange[****Su pago aún no ha sido confirmado****] ⚠️Puede realizar cambios en los datos de pago en el caso que sea necesario')
+                                        ph1.write('OBSERVACION: ⚠️:orange[****Su pago aún no ha sido confirmado****] ⚠️')
+                                        ph1.write('Puede realizar cambios en los datos de pago en el caso que sea necesario')
+                                        ph1.write('***')
                                 elif first['paycon']=='NO':
-                                        ph1.write('OBSERVACION:👁️‍🗨️ :red[****Aún NO ha realizado ningún pago.****] 👁️‍🗨️Realize y registre su pago ahora')
+                                        ph1.write('OBSERVACION:👁️‍🗨️ :red[****Aún NO se ha registrado ningún pago.****] 👁️‍🗨️')
+                                        ph1.write(' :blue[**Realize y registre su pago ahora**]')
+                                        ph1.write('***')
                                 else: ph1.write('OBSERVACION:✅ :green[****Pago confirmado. Inscripción realizada****] ✅Gracias por su diligencia')
-                                modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
-                                if modalidad=='Virtual': montoAcancelar = montoApagar.items[1]['MontoAPagarVirtual']
-                                else: montoAcancelar = montoApagar.items[1]['MontoAPagarPresencial']
+                                modabase = ['Virtual', 'Presencial', '-']
+                                moda = first['Modalidad']
+                                modaindex = modabase.index(moda)
+                                modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True, index=None if moda=='-' else modaindex)
+                                if modalidad=='Virtual': 
+                                        montoAcancelar = montoApagar.items[2]['MontoAPagarVirtual']
+                                        modalidadmsg = 'Virtual'
+                                elif modalidad=='Presencial': 
+                                        montoAcancelar = montoApagar.items[2]['MontoAPagarPresencial']
+                                        modalidadmsg = 'Presencial'
+                                else: 
+                                        montoAcancelar = '0'
+                                        modalidadmsg = 'No Seleccionado'
                                 if first['paycon'] == 'SI': 
                                         valpay = True
                                         pagoConfirmado = 'SI'
                                 else: 
                                         valpay = False
                                         pagoConfirmado = 'PENDIENTE'
-                                        ph1.write('➡️➡️➡️ _Monto a cancelar por modalidad_   ↔️:red[ **'+ modalidad+ ': Bs '+montoAcancelar+'** ]')
-                                fuenteOrigen = ph1.text_input('Origen del pago(Pago Móvil, Transferencia Bancaria)', value = first['fuenteOrigen'], disabled = valpay)
-                                fechaPago = ph1.text_input('Fecha de pago', value = first['fechaPago'], disabled = valpay)
-                                referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 4 dígitos)', value = first['referenciaPago'], disabled = valpay)
-                                montoPago = ph1.text_input('Monto pagado', value = first['montoPago'], disabled = valpay)
+                                        ph1.write('➡️➡️ _Monto a cancelar por modalidad:_   :red[ **'+ str(modalidadmsg) + '** ]'+', Bs :blue[ **'+montoAcancelar+'** ]')
+                                #fuenteOrigen = ph1.text_input('Origen del pago(Pago Móvil, Transferencia Bancaria)', value = first['fuenteOrigen'], disabled = valpay)
+                                foribase = ['Pago Móvil', 'Transferencia Bancaria', '-']
+                                fori = first['fuenteOrigen']
+                                forindex = foribase.index(fori)
+                                fuenteOrigen = ph1.radio('Fuente/Origen del pago', ['Pago Móvil', 'Transferencia Bancaria'], index=None if fori=='-' else forindex, horizontal=True, disabled=valpay)
+                                #fechaPago = ph1.text_input('Fecha de pago', value = first['fechaPago'], disabled = valpay)
+                                fpago = first['fechaPago']
+                                if fpago != '-': fpago2 = datetime.datetime.strptime(fpago, "%d/%m/%Y")
+                                #if fpago != '-': 
+                                fechaPago2 = ph1.date_input('Fecha de pago', value=None if fpago == '-' else fpago2, format="DD/MM/YYYY")
+                                fechaPago = fechaPago2.strftime("%d/%m/%Y") if fechaPago2 != None else '-'
+                                referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 4 dígitos)', value = first['referenciaPago'], disabled = valpay, max_chars=4)
+                                #montoPago = ph1.text_input('Monto pagado', value = first['montoPago'], disabled = valpay)
+                                montoPago2 = ph1.number_input('Monto pagado', value = None if first['montoPago']=='-' else float(first['montoPago']), placeholder='típee un número')
+                                montoPago = str(montoPago2) if montoPago2 != None else '-'
                         else:
                                 st.warning('El número de documento de identidad:id: ingresado NO aparece en nuestra base de datos.:file_cabinet: :arrow_right: intente de nuevo')
 if ch_data:
@@ -100,14 +137,15 @@ if b1:
                 b0=False
                 updates = {'Nombres': nombres,
                            'Apellidos': apellidos,
-                           'correo': correo,
-                           'Teléfono': telefono,
+                           'Categoria': catasp,
+                           'Email': correo,
+                           'Telefono': telefono,
                            'paycon': pagoConfirmado,
                            'fuenteOrigen': fuenteOrigen,
                            'fechaPago': fechaPago,
                            'referenciaPago': referenciaPago,
                            'montoPago': montoPago,
-                           'MontoApagar': montoAcancelar,
+                           'MontoApagar': str(montoAcancelar),
                            'Modalidad': modalidad}
 
                 encprof.update(updates, cedula)
@@ -117,18 +155,19 @@ if b1:
                         st.write('**Nombres**')
                         st.success(registro['Nombres'], icon="📛")
                         st.write('**Correo electronico**')
-                        st.info(registro['correo'], icon="✉️")
+                        st.info(registro['Email'], icon="✉️")
                         st.write('**Modalidad**')
                         st.info(registro['Modalidad'], icon="🖥️")
                         st.write('**Origen de Pago**')
                         st.info(registro['fuenteOrigen'], icon="💳")
                         st.write('**Número de Referencia del Pago**')
                         st.info(registro['referenciaPago'], icon="🔢")
+                        
                 with col2:
                         st.write('**Apellidos**')
                         st.info(registro['Apellidos'], icon="ℹ️")
                         st.write('**Teléfono**')
-                        st.success(registro['Teléfono'], icon="📞")
+                        st.success(registro['Telefono'], icon="📞")
                         st.write('**Monto A Cancelar**')
                         st.info(registro['MontoApagar'], icon="💴")
                         st.write('**Fecha de Pago**')
@@ -148,3 +187,4 @@ st.write('----------------')
 regresar = st.button('Volver a Principal')
 if regresar:
     switch_page('logmi')
+st.page_link("pages/home2024.py", label="Inicio", icon="🏠")

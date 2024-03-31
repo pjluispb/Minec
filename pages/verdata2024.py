@@ -46,7 +46,7 @@ st.image(imagen2)
 
 st.write('Hola ****' + logina['user'] + '****')
 st.write('Datos del registro de ministros del distrito: ****' + logina['Distrito'] + '****')
-if logina['tipou']!='AdminRegistro':
+if logina['tipou']!='Registrador Especial':
     dtto = logina['Distrito']
 else:
     dtto = ''
@@ -63,7 +63,7 @@ totalizadores = ['Total', 'NO registrados', 'Pendientes', 'Registrados']
 
 df = pd.DataFrame.from_dict(db_content)
 df.rename(columns={"key": "cedula"}, inplace=True) # cambia el nombre de la columna KEY a CEDULA
-df = df.reindex(columns=['Distrito', 'cedula', 'Nombres', 'Apellidos', 'Categoria', 'paycon', 'referenciaPago', 'fechaPago', 'montoPago', 'Email', 'Telefono', 'Modalidad', 'Status', 'ReporteCertif', 'fuenteOrigen']) #Reordena las columnas como se mostraran
+df = df.reindex(columns=['Distrito', 'Categoria', 'cedula', 'Nombres', 'Apellidos', 'Email', 'Telefono', 'Modalidad', 'paycon', 'MontoApagar', 'fuenteOrigen', 'referenciaPago', 'fechaPago', 'montoPago',   'Status', 'ReporteCertif' ]) #Reordena las columnas como se mostraran
 df.style.apply(row_style, axis=1)  #Coloriza las filas
 categoriasEnPron = set(df['Categoria'].tolist())
 #st.write(categoriasEnPron)
@@ -219,9 +219,10 @@ else:
 
 
 with st.expander('Data del distrito ' + dtto):
-    df = df.reindex(columns=['Distrito', 'Categoria', 'cedula', 'Nombres', 'Apellidos', 'paycon', 'Modalidad', 'MontoApagar', 'montoPago', 'Diferencia', 'fuenteOrigen', 'referenciaPago', 'fechaPago', 'Email', 'Telefono'])
+    df = df.reindex(columns=['Distrito', 'Categoria', 'cedula', 'Nombres', 'Apellidos', 'Email', 'Telefono', 'paycon', 'Modalidad', 'MontoApagar', 'montoPago', 'Diferencia', 'fuenteOrigen', 'referenciaPago', 'fechaPago'])
     st.dataframe(df.style.apply(row_style, axis=1))
     
 regresar = st.button('Volver')
 if regresar:
     switch_page('logmi')
+st.page_link("pages/home2024.py", label="Inicio", icon="🏠")

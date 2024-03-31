@@ -16,17 +16,17 @@ logina = st.session_state['logina']
 st.image(imagen1)
 st.image(imagen2)
 st.subheader('Bienvenid@ ' + logina['user'])
-if logina['tipou']=='AdminRegistro':
+if logina['tipou']=='Registrador Especial':
     st.write('Eres _Representante de Minec_ para todos los distritos')
 else:
     st.write('Eres  _Representante de MINEC_ para el distrito ****' + logina['Distrito'] + '**** y por eso puedes ver la data del distrito y actualizar algunos registros')
 st.subheader('Que deseas hacer?')
-if logina['tipou']=='AdminRegistro':
-    acciones = ['⏩', 'VER DATA', 'ACTUALIZAR', 'REGISTRAR' ]
+if logina['tipou']=='Registrador Especial':
+    acciones = ['VER DATA', 'ACTUALIZAR', 'REGISTRAR' ]
 else:
-    acciones = ['⏩', 'VER DATA', 'ACTUALIZAR' ]
+    acciones = ['VER DATA', 'ACTUALIZAR' ]
 st.write('Seleccionar Acción')
-selector = st.radio('****Seleccionar Acción****', acciones, horizontal=True, label_visibility='collapsed',)
+selector = st.radio('****Seleccionar Acción****', acciones, horizontal=True, label_visibility='collapsed', index=None)
 #st.write(selector)
 if selector=='ACTUALIZAR':
     st.write('Actualizar Data')
@@ -39,3 +39,4 @@ if selector=='VER DATA':
 regresar = st.button('Volver')
 if regresar:
     switch_page('logmi')
+st.page_link("pages/home2024.py", label="Inicio", icon="🏠")
