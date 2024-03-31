@@ -45,5 +45,5 @@ with st.form('Login Minec'):
                 #st.write('Clave Invalida', clave, type(clave), bclave, type(bclave))
         else:
             st.write('Nombre de Usuario Invalido')
-
+st.page_link("pages/home2024.py", label="Inicio", icon="🏠")
     
