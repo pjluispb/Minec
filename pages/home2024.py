@@ -21,5 +21,4 @@ uminec = ingresou.toggle(' $$ \large Usuario \,MINEC $$')
 if uminec:
     st.switch_page('logmi.py')
 if uministro:
-    #st.switch_page('pages/logministro.py')
-    st.switch_page('pages/deshabilitado.py')
+    st.switch_page('pages/logministro.py')

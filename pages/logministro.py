@@ -4,7 +4,7 @@ from deta import Deta
 from PIL import Image
 
 deta = Deta(st.secrets["deta_key"])
-encprof = deta.Base('Prondamin2024A')
+encprof = deta.Base('Prondamin2024B')
 photosys = deta.Drive(name='modphotos')
 
 imagen1 = Image.open('minecLogo.jpeg')
@@ -31,7 +31,7 @@ else:
     content = imagenCer.read()
     
     st.image(content)
-    st.subheader('Hola '+first['Nombres']+'  '+first['Apellidos'])
+    st.subheader('Hola '+first['nombre']+'  '+first['apellido'])
 
     vercertificados = st.toggle('Ver/Consultar Certificados')
     actualizamin = st.toggle('Actualizar data y/o inscribir curso')

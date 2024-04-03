@@ -11,7 +11,7 @@ imagen1 = Image.open('minecLogo.jpeg')
 imagen2 = Image.open('minecLogoTitle.jpeg')
 
 deta = Deta(st.secrets["deta_key"])
-encprof = deta.Base('Prondamin2024A')
+encprof = deta.Base('Prondamin2024B')
 montopay = deta.Base('MontoAPagar')
 montoApagar = montopay.fetch()
 
@@ -60,19 +60,19 @@ if b0:
                                 cedmin = cedula
                                 ch_data = True
                                 ph1.text('Edite los siguientes campos')
-                                nombres = ph1.text_input('Nombres :name_badge:', value = first['Nombres'])
-                                apellidos = ph1.text_input('Apellidos:',value = first['Apellidos'])
-                                correo = ph1.text_input('Correo Electrónico: 	:email:',value = first['Email'])
-                                telefono = ph1.text_input('Teléfono: :telephone_receiver:',value = first['Telefono'])
-                                distrito = ph1.text_input('Distrito:',value = first['Distrito'], disabled=True)
+                                nombres = ph1.text_input('Nombres :name_badge:', value = first['nombre'])
+                                apellidos = ph1.text_input('Apellidos:',value = first['apellido'])
+                                correo = ph1.text_input('Correo Electrónico: 	:email:',value = first['emails'][0])
+                                telefono = ph1.text_input('Teléfono: :telephone_receiver:',value = first['teléfonos'][0])
+                                distrito = ph1.text_input('Distrito:',value = first['distrito'], disabled=True)
                                 if logina['tipou']=='Registrador':
-                                        catasp = ph1.text_input('Categoría: :male-judge:',value = first['Categoria'], disabled=True)
+                                        catasp = ph1.text_input('Categoría: :male-judge:',value = first['categoría'], disabled=True)
                                 if logina['tipou']=='Registrador Especial':
-                                        vacat = first['Categoria']
-                                        catpos = ['Ministro Ordenado', 'Ministro Licenciado', 'Ministro Cristiano', 'Ministro Distrital', 'Ministro Otro']
+                                        vacat = first['categoría']
+                                        catpos = ['Ministro Ordenado', 'Ministro Licenciado', 'Ministro Cristiano', 'Ministro Distrital', 'Ministro Otro', '-']
                                         ph1.write('El grado ministerial registrado actualmente en nuestra base de datos es de: :blue[ **'+vacat+'** ]')
                                         #ph1.write('Si desea cambiarlo/actualizarlo seleccione uno de los siguientes')
-                                        catasp2 = ph1.selectbox('Si desea cambiarlo/actualizarlo seleccione uno de los siguientes. :orange[**OJO: debes estar muy seguro del cambio**] ', ['Ministro Ordenado', 'Ministro Licenciado', 'Ministro Cristiano'], index=None,  placeholder='Seleccione una opción')
+                                        catasp2 = ph1.selectbox('Si desea cambiarlo/actualizarlo seleccione uno de los siguientes. :orange[**OJO: debes estar muy seguro del cambio**] ', ['Ministro Ordenado', 'Ministro Licenciado', 'Ministro Cristiano', 'Ministro Distrital', '-'], index=None,  placeholder='Seleccione una opción')
                                         catasp = catasp2 if catasp2 != None else vacat
                                 ph1.write('---')
                                 ph1.subheader('Datos acerca del pago')
@@ -86,7 +86,8 @@ if b0:
                                         ph1.write('***')
                                 else: ph1.write('OBSERVACION:✅ :green[****Pago confirmado. Inscripción realizada****] ✅Gracias por su diligencia')
                                 modabase = ['Virtual', 'Presencial', '-']
-                                moda = first['Modalidad']
+                                #first['modalidad']
+                                moda = first['modalidad']
                                 modaindex = modabase.index(moda)
                                 modalidad = ph1.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True, index=None if moda=='-' else modaindex)
                                 if modalidad=='Virtual': 
@@ -135,29 +136,29 @@ if ch_data:
 if b1:
         with st.expander("ESTOS SON LOS DATOS ACTUALIZADOS", expanded=True):
                 b0=False
-                updates = {'Nombres': nombres,
-                           'Apellidos': apellidos,
-                           'Categoria': catasp,
-                           'Email': correo,
-                           'Telefono': telefono,
+                updates = {'nombre': nombres,
+                           'apellido': apellidos,
+                           'categoría': catasp,
+                           'emails': [correo],
+                           'teléfonos': [telefono],
                            'paycon': pagoConfirmado,
                            'fuenteOrigen': fuenteOrigen,
                            'fechaPago': fechaPago,
                            'referenciaPago': referenciaPago,
                            'montoPago': montoPago,
-                           'MontoApagar': str(montoAcancelar),
-                           'Modalidad': modalidad}
+                           'montoApagar': str(montoAcancelar),
+                           'modalidad': modalidad}
 
                 encprof.update(updates, cedula)
                 registro = encprof.get(cedula)
                 col1, col2 = st.columns(2)
                 with col1:
                         st.write('**Nombres**')
-                        st.success(registro['Nombres'], icon="📛")
+                        st.success(registro['nombre'], icon="📛")
                         st.write('**Correo electronico**')
-                        st.info(registro['Email'], icon="✉️")
+                        st.info(registro['emails'][0], icon="✉️")
                         st.write('**Modalidad**')
-                        st.info(registro['Modalidad'], icon="🖥️")
+                        st.info(registro['modalidad'], icon="🖥️")
                         st.write('**Origen de Pago**')
                         st.info(registro['fuenteOrigen'], icon="💳")
                         st.write('**Número de Referencia del Pago**')
@@ -165,11 +166,11 @@ if b1:
                         
                 with col2:
                         st.write('**Apellidos**')
-                        st.info(registro['Apellidos'], icon="ℹ️")
+                        st.info(registro['apellido'], icon="ℹ️")
                         st.write('**Teléfono**')
-                        st.success(registro['Telefono'], icon="📞")
+                        st.success(registro['teléfonos'][0], icon="📞")
                         st.write('**Monto A Cancelar**')
-                        st.info(registro['MontoApagar'], icon="💴")
+                        st.info(registro['montoApagar'], icon="💴")
                         st.write('**Fecha de Pago**')
                         st.info(registro['fechaPago'], icon="📆")
                         st.write('**Monto Pagado**')

@@ -26,7 +26,7 @@ if (logina['user'], logina['clave']) not in permisados:
     switch_page('reiniciar03')
 
 
-encprof = deta.Base('Prondamin2024A')
+encprof = deta.Base('Prondamin2024B')
 montopay = deta.Base('MontoAPagar')
 montoApagar = montopay.fetch()
 #st.write(montoApagar.items[0]['MontoAPagarVirtual'], montoApagar.items[0]['MontoAPagarPresencial'])
@@ -49,7 +49,7 @@ with st.form('nuevo registro'):
         st.write('Distrito : ****' + distrito + '****')
     else:
         distrito = st.selectbox('Distrito:',['Andino','Centro','Centro Llanos', 'Falcón','Lara', 'Llanos','Llanos Occidentales','Metropolitano','Nor Oriente','Sur Oriente','Yaracuy','Zulia'])
-    categoria = st.selectbox(label= 'Categoría :', options=['Ministro Cristiano','Ministro Licenciado','Ministro Ordenado'])
+    categoria = st.selectbox(label= 'Categoría :', options=['Ministro Distrital', 'Ministro Cristiano','Ministro Licenciado','Ministro Ordenado'])
     # modalidad = st.radio(label='Modalidad del curso', options=['Virtual', 'Presencial'], horizontal=True)
     # if modalidad=='Virtual': montoAcancelar = montoApagar.items[0]['MontoAPagarVirtual']
     # else: montoAcancelar = montoApagar.items[0]['MontoAPagarPresencial']
@@ -76,13 +76,13 @@ with st.form('nuevo registro'):
             st.success('Se ha registrado una nueva entrada', icon="✅" )
             registro = {
                 "key": cedula,
-                "Email": correo,
-                "Apellidos": apellidos,
-                "Nombres": nombres,
-                "Telefono": telefono,
-                "Distrito": distrito,
-                "Categoria": categoria,
-                "Modalidad": modalidad,
+                "emails": [correo],
+                "apellido": apellidos,
+                "nombre": nombres,
+                "teléfonos": [telefono],
+                "distrito": distrito,
+                "categoría": categoria,
+                "modalidad": modalidad,
                 "Status": status,
                 "ReporteCertif": observacion,
                 'paycon': pagoConfirmado,
@@ -90,7 +90,7 @@ with st.form('nuevo registro'):
                 'fechaPago': fechaPago,
                 'referenciaPago': referenciaPago,
                 'montoPago': montoPago,
-                'MontoApagar': montoAcancelar
+                'montoApagar': montoAcancelar
                 }
             #registro
             encprof.put(registro)
@@ -103,13 +103,13 @@ with st.form('nuevo registro'):
                 st.write('**Cédula**')
                 st.success(registro['key'], icon="🆔")
                 st.write('**Nombres**')
-                st.info(registro['Nombres'], icon="📛")
+                st.info(registro['nombre'], icon="📛")
                 st.write('**Categoria**')
-                st.info(registro['Categoria'], icon="💠")
+                st.info(registro['categoría'], icon="💠")
                 st.write('**Modalidad**')
-                st.success(registro['Modalidad'], icon="💻")
+                st.success(registro['modalidad'], icon="💻")
                 st.write('**Correo Electronico**')
-                st.success(registro['Email'], icon="📧")
+                st.success(registro['emails'][0], icon="📧")
                 st.write('--------------')
                 # st.write('**Origen del Pago**')
                 # st.success(registro['fuenteOrigen'], icon="📧")
@@ -117,11 +117,11 @@ with st.form('nuevo registro'):
                 # st.success(registro['referenciaPago'], icon="📧")
             with col2:
                 st.write('**Teléfono**')
-                st.info(registro['Telefono'], icon="📞")
+                st.info(registro['teléfonos'][0], icon="📞")
                 st.write('**Apellidos**')
-                st.success(registro['Apellidos'], icon="ℹ️")
+                st.success(registro['apellido'], icon="ℹ️")
                 st.write('**Distrito**')
-                st.success(registro['Distrito'], icon="🗺️")
+                st.success(registro['distrito'], icon="🗺️")
                 st.write('**Status**')
                 st.info(registro['Status'], icon="📝")
                 st.write('**.**')
