@@ -72,7 +72,7 @@ if b0:
                 elif first['paycon']=='NO':
                         ph1.write('OBSERVACIÓN:')
                         ph1.write('👁️‍🗨️ :red[****NO se ha registrado ningún pago.****] 👁️‍🗨️')
-                        ph1.write(' :blue[**Realize y registre su pago ahora**]')
+                        ph1.write(' :blue[**Realice y registre su pago ahora**]')
                         ph1.write('***')
                 else:   
                         ph1.write('OBSERVACIÓN:')
