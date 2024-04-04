@@ -77,14 +77,14 @@ if b0:
                                 ph1.write('---')
                                 ph1.subheader('Datos acerca del pago')
                                 if first['paycon']=='PENDIENTE':
-                                        ph1.write('OBSERVACION: ⚠️:orange[****Su pago aún no ha sido confirmado****] ⚠️')
+                                        ph1.write('OBSERVACIÓN: ⚠️:orange[****Su pago aún no ha sido confirmado****] ⚠️')
                                         ph1.write('Puede realizar cambios en los datos de pago en el caso que sea necesario')
                                         ph1.write('***')
                                 elif first['paycon']=='NO':
-                                        ph1.write('OBSERVACION:👁️‍🗨️ :red[****Aún NO se ha registrado ningún pago.****] 👁️‍🗨️')
-                                        ph1.write(' :blue[**Realize y registre su pago ahora**]')
+                                        ph1.write('OBSERVACIÓN:👁️‍🗨️ :red[****Aún NO se ha registrado ningún pago.****] 👁️‍🗨️')
+                                        ph1.write(' :blue[**RealiCe y registre su pago ahora**]')
                                         ph1.write('***')
-                                else: ph1.write('OBSERVACION:✅ :green[****Pago confirmado. Inscripción realizada****] ✅Gracias por su diligencia')
+                                else: ph1.write('OBSERVACIÓN:✅ :green[****Pago confirmado. Inscripción realizada****] ✅Gracias por su diligencia')
                                 modabase = ['Virtual', 'Presencial', '-']
                                 #first['modalidad']
                                 moda = first['modalidad']
@@ -119,7 +119,7 @@ if b0:
                                 fechaPago = fechaPago2.strftime("%d/%m/%Y") if fechaPago2 != None else '-'
                                 referenciaPago = ph1.text_input('Nro de referencia del pago (últimos 4 dígitos)', value = first['referenciaPago'], disabled = valpay, max_chars=4)
                                 #montoPago = ph1.text_input('Monto pagado', value = first['montoPago'], disabled = valpay)
-                                montoPago2 = ph1.number_input('Monto pagado', value = None if first['montoPago']=='-' else float(first['montoPago']), placeholder='típee un número')
+                                montoPago2 = ph1.number_input('Monto pagado', value = None if first['montoPago']=='-' else float(first['montoPago']), placeholder='escribe un número')
                                 montoPago = str(montoPago2) if montoPago2 != None else '-'
                         else:
                                 st.warning('El número de documento de identidad:id: ingresado NO aparece en nuestra base de datos.:file_cabinet: :arrow_right: intente de nuevo')
