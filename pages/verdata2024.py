@@ -118,11 +118,11 @@ if dtto!='':
         }
         
 
-    with st.expander('Consolidado del distrito ' + dtto):
-        st.subheader('Resumen '+dtto)
-        st.dataframe(dftot)
-        st.subheader('Gráfico '+dtto)
-        st_echarts(options=options, height = '250px')
+    #with st.expander('Consolidado del distrito ' + dtto):
+    #    st.subheader('Resumen '+dtto)
+    #    st.dataframe(dftot)
+    #    st.subheader('Gráfico '+dtto)
+    #    st_echarts(options=options, height = '250px')
 
         
 
