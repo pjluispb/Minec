@@ -20,7 +20,7 @@ if logina['tipou']=='Registrador Especial':
     st.write('Eres _Representante de Minec_ para todos los distritos')
 else:
     st.write('Eres  _Representante de MINEC_ para el distrito ****' + logina['Distrito'] + '**** y por eso puedes ver la data del distrito y actualizar algunos registros')
-st.subheader('Que deseas hacer?')
+st.subheader('Qué deseas hacer?')
 if logina['tipou']=='Registrador Especial':
     acciones = ['VER DATA', 'ACTUALIZAR', 'REGISTRAR' ]
 else:
