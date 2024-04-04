@@ -53,7 +53,7 @@ else:
 deta = Deta(st.secrets["deta_key"])
 encprof = deta.Base('Prondamin2024B')
 if dtto!='':
-    db_content = encprof.fetch({'Distrito':dtto}, limit=2000).items
+    db_content = encprof.fetch({'distrito':dtto}, limit=2000).items
 else:
     db_content = encprof.fetch(limit=3000).items
 #st.write(db_content)
