@@ -26,10 +26,13 @@ with st.form('Login Minec'):
     clave = st.text_input('Clave de acceso 	:key:', type="password", placeholder='clave de acceso')
     enviar = st.form_submit_button('Enviar')
     if enviar:
-        buser = [x for x in res.items if x['user']==usuario]
+        buser = [x for x in res.items if (x['user']==usuario and x['clave']==clave)]
+        #st.write(buser)
         if len(buser)>0:
             bclave = buser[0]['clave']
-            print(bclave)
+            #bclave2 = [y for y in buser if y['clave'].startswith('vov4-')]
+            #print(bclave)
+
             if str(bclave).startswith('vov4-'):
                 if str(bclave)==str(clave):
                     logina = buser[0]
