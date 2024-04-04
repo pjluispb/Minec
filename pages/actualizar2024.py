@@ -84,7 +84,10 @@ if b0:
                                         ph1.write('OBSERVACIÓN:👁️‍🗨️ :red[****Aún NO se ha registrado ningún pago.****] 👁️‍🗨️')
                                         ph1.write(' :blue[**RealiCe y registre su pago ahora**]')
                                         ph1.write('***')
-                                else: ph1.write('OBSERVACIÓN:✅ :green[****Pago confirmado. Inscripción realizada****] ✅Gracias por su diligencia')
+                                else: 
+                                        ph1.write('OBSERVACIÓN:✅ :green[****Pago confirmado. Inscripción realizada****] ✅Gracias por registrarte y por tu diligencia')
+                                        ph1.write('Te invitamos a unirte al chat de PRONDAMIN 2024')
+                                        ph1.link_button(label='Grupo de WhatsApp PRONDAMIN2024', url='https://chat.whatsapp.com/KmDnXJp1CF23mXe4cU3GEG')
                                 modabase = ['Virtual', 'Presencial', '-']
                                 #first['modalidad']
                                 moda = first['modalidad']
