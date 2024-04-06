@@ -128,6 +128,9 @@ if ch_data:
 if b1:
         with st.expander("ESTOS SON LOS DATOS ACTUALIZADOS", expanded=True):
                 b0=False
+                if modalidad==None: modalidad='-'
+                if fuenteOrigen==None: fuenteOrigen='-'
+                if referenciaPago=='-': pagoConfirmado='NO'
                 updates = {'nombre': nombres,
                            'apellido': apellidos,
                            'categoría': catasp,
